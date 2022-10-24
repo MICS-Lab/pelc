@@ -98,11 +98,17 @@ def compute_epitopic_charge(
 
         epitope_charge_detail: pd.Series = (
                 both_all_epitopes["Donors' epitopes"] - both_all_epitopes["Recipients' epitopes"]
-        )
+        ).rename("Epitopic Charge")
         if output_type == OutputType.DETAILS_AND_COUNT or output_type == OutputType.COUNT:
             epitope_charge: pd.Series = epitope_charge_detail.apply(len)
             if output_type == OutputType.DETAILS_AND_COUNT:
-                epitope_charge_detail = epitope_charge_detail.astype(str).replace("set()", "None")
+                epitope_charge_detail = epitope_charge_detail.astype(str)
+                epitope_charge_detail = (
+                    epitope_charge_detail.replace("set()", "None")
+                                         .replace("{", "", regex=True)
+                                         .replace("}", "", regex=True)
+                                         .replace("'", "", regex=True)
+                )
                 pd.concat(
                     [epitope_charge, epitope_charge_detail],
                     axis=1
@@ -110,5 +116,11 @@ def compute_epitopic_charge(
             else:  # OutputType.COUNT
                 epitope_charge.to_csv(f"{output_path}.csv")
         elif output_type == OutputType.ONLY_DETAILS:
-            epitope_charge_detail = epitope_charge_detail.astype(str).replace("set()", "None")
+            epitope_charge_detail = epitope_charge_detail.astype(str)
+            epitope_charge_detail = (
+                epitope_charge_detail.replace("set()", "None")
+                                     .replace("{", "", regex=True)
+                                     .replace("}", "", regex=True)
+                                     .replace("'", "", regex=True)
+            )
             epitope_charge_detail.to_csv(f"{output_path}.csv")
