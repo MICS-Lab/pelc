@@ -4,9 +4,9 @@ import pandas as pd
 def read_available_alleles(df_ref: pd.DataFrame | None) -> list[str]:
     list_ref: list[str]
 
-    try:
+    if df_ref is not None:
         list_ref = list(df_ref.index.values)
-    except AttributeError:
+    else:
         list_ref = []
 
     return list_ref

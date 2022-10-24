@@ -20,9 +20,9 @@ def test_epitope_comparison_details() -> None:
         False,
     )
 
-    output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
-    assert output_df.at[1, "EpMismatches"] == "None"
+    assert output_df_fp.at[1, "EpMismatches"] == "None"
 
     os.remove(f"{output_path}.csv")
 
@@ -40,12 +40,12 @@ def test_epitope_comparison_details() -> None:
         False,
     )
 
-    output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
     for index_ in range(5, 2146):
-        assert output_df.at[index_, "EpMismatches"] == "None"
+        assert output_df_fn.at[index_, "EpMismatches"] == "None"
 
-    list_mismatches: list[str] = output_df.at[1, "EpMismatches"].split(", ")
+    list_mismatches: list[str] = output_df_fn.at[1, "EpMismatches"].split(", ")
     assert ("rq26Y" in list_mismatches)
     # rq26Y is in DQB1*03:01 but not in DQB1*03:02 (can be checked by aligning the sequences on
     # https://www.ebi.ac.uk/ipd/imgt/hla/alignment/)
