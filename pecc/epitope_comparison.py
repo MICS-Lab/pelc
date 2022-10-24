@@ -98,9 +98,9 @@ def compute_epitopic_charge(
 
         epitope_charge_detail: pd.Series = (
                 both_all_epitopes["Donors' epitopes"] - both_all_epitopes["Recipients' epitopes"]
-        ).rename("Epitopic Charge")
+        ).rename("EpMismatches")
         if output_type == OutputType.DETAILS_AND_COUNT or output_type == OutputType.COUNT:
-            epitope_charge: pd.Series = epitope_charge_detail.apply(len)
+            epitope_charge: pd.Series = epitope_charge_detail.apply(len).rename("Epitopic Charge")
             if output_type == OutputType.DETAILS_AND_COUNT:
                 epitope_charge_detail = epitope_charge_detail.astype(str)
                 epitope_charge_detail = (
