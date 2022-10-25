@@ -2,4 +2,4 @@ import importlib.metadata
 
 __version__: str = importlib.metadata.version("pecc")
 
-from . import epitope_comparison
+from . import epitope_comparison, epitope_comparison_aux
