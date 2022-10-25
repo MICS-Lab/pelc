@@ -3,7 +3,7 @@ import logging
 import os
 import pandas as pd
 
-from pecc._epitope_comparison_aux import allele_df_to_epitopes_df
+from pecc.epitope_comparison_aux import _allele_df_to_epitopes_df
 from pecc.output_type import OutputType
 from pecc._unexpected_alleles import delete_unexpected_alleles, remove_unexpected_other_individual
 
@@ -75,10 +75,10 @@ def compute_epitopic_charge(
     else:
         input_df_donor, input_df_recipient = remove_unexpected_other_individual(input_df_donor, input_df_recipient)
 
-        donors_epitopes_per_allele: pd.DataFrame = allele_df_to_epitopes_df(
+        donors_epitopes_per_allele: pd.DataFrame = _allele_df_to_epitopes_df(
             input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp
         )
-        recipients_epitopes_per_allele: pd.DataFrame = allele_df_to_epitopes_df(
+        recipients_epitopes_per_allele: pd.DataFrame = _allele_df_to_epitopes_df(
             input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp
         )
 
