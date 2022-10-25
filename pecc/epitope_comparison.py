@@ -17,6 +17,7 @@ def compute_epitopic_charge(
     class_i: bool = True,
     class_ii: bool = True,
     verifiedonly: bool = False,
+    exclude: list[int | str] | None = None,
 ) -> None:
     """
     :param input_df_donor: Input Donors Typing pandas.DataFrame
@@ -26,6 +27,7 @@ def compute_epitopic_charge(
     :param class_i: Compute class I epitopes comparison?
     :param class_ii: Compute class II epitopes comparison?
     :param verifiedonly: How should the peitopic charge be computed Verified epitopes only? Or all epitopes?
+    :param exclude: list of indices to exclude
 
     :return: None
     """
@@ -33,6 +35,10 @@ def compute_epitopic_charge(
         logging.error(
             "User did not request class I epitope comparison nor did they request class II epitope comparison."
         )
+
+    if exclude is not None:
+        input_df_donor.drop(exclude, axis=0, inplace=True)
+        input_df_recipient.drop(exclude, axis=0, inplace=True)
 
     df_a: pd.DataFrame
     df_b: pd.DataFrame
