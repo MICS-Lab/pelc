@@ -11,7 +11,7 @@ def split_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     :return: two pandas.DataFrames (donor DataFrame and recipient DataFrame)
     """
-    return df.filter(regex='_D'), df.filter(regex='_R')
+    return df.filter(regex='_D').copy(), df.filter(regex='_R').copy()
 
 
 def _convert_to_epitopes(allele: str, df_ref: pd.DataFrame, suffix: str) -> list[str]:
