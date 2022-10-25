@@ -3,9 +3,9 @@ import logging
 import os
 import pandas as pd
 
-from pecc.epitope_comparison_aux import allele_df_to_epitopes_df
+from pecc._epitope_comparison_aux import allele_df_to_epitopes_df
 from pecc.output_type import OutputType
-from pecc.unexpected_alleles import delete_unexpected_alleles, remove_unexpected_other_individual
+from pecc._unexpected_alleles import delete_unexpected_alleles, remove_unexpected_other_individual
 
 
 # MAIN

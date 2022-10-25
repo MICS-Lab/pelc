@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from pecc.epitope_comparison_aux import split_dataframe
+from pecc._epitope_comparison_aux import split_dataframe
 
 
 def base_loading(sheet_name: str) -> tuple[pd.DataFrame, pd.DataFrame, str]:
