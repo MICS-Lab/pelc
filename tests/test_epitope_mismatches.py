@@ -101,3 +101,47 @@ def test_epitope_comparison_count() -> None:
         assert output_df.at[index_, "Epitopic Charge"] == 0
 
     os.remove(f"{output_path}.csv")
+
+
+def test_epitope_comparison_isolated_classes() -> None:
+    donordf, recipientdf, output_path = base_loading("False Negs")
+
+    ## Only class I
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.COUNT,
+        True,
+        False,
+        False,
+    )
+
+    output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    for index_ in range(5, 2146):
+        # We can include index_ = 5 because we're talking about False Negatives here (all the eplet mismatches are
+        # compensated by B*35:01)
+        assert output_df.at[index_, "Epitopic Charge"] == 0
+
+    os.remove(f"{output_path}.csv")
+
+    # Only class II
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.COUNT,
+        False,
+        True,
+        False,
+    )
+
+    output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    for index_ in range(5, 2146):
+        # We can include index_ = 5 because we're talking about False Negatives here (all the eplet mismatches are
+        # compensated by B*35:01)
+        assert output_df.at[index_, "Epitopic Charge"] == 0
+
+    os.remove(f"{output_path}.csv")

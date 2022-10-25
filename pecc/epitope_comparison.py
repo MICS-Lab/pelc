@@ -34,32 +34,44 @@ def compute_epitopic_charge(
             "User did not request class I epitope comparison nor did they request class II epitope comparison."
         )
 
-    df_a: pd.DataFrame | None
-    df_b: pd.DataFrame | None
-    df_c: pd.DataFrame | None
-    df_dr: pd.DataFrame | None
-    df_dq: pd.DataFrame | None
-    df_dp: pd.DataFrame | None
+    df_a: pd.DataFrame
+    df_b: pd.DataFrame
+    df_c: pd.DataFrame
+    df_dr: pd.DataFrame
+    df_dq: pd.DataFrame
+    df_dp: pd.DataFrame
     df_data: pd.DataFrame
     """
     df_data sums up the properties of each amino acid
     """
 
     this_file_directory_path: str = os.path.dirname(os.path.realpath(__file__))
-    if class_i:
+    if class_i and class_ii:
         df_a = pd.read_csv(f"{this_file_directory_path}/data/A.csv").set_index("allele")
         df_b = pd.read_csv(f"{this_file_directory_path}/data/B.csv").set_index("allele")
         df_c = pd.read_csv(f"{this_file_directory_path}/data/C.csv").set_index("allele")
-    else:
-        # we don't want to load .csv files if they are not needed
-        df_a, df_b, df_c = None, None, None
-    if class_ii:
         df_dr = pd.read_csv(f"{this_file_directory_path}/data/DR.csv").set_index("allele")
         df_dq = pd.read_csv(f"{this_file_directory_path}/data/DQ.csv").set_index("allele")
         df_dp = pd.read_csv(f"{this_file_directory_path}/data/DP.csv").set_index("allele")
     else:
-        # we don't want to load .csv files if they are not needed
-        df_dr, df_dq, df_dp = None, None, None
+        if class_i:
+            df_a = pd.read_csv(f"{this_file_directory_path}/data/A.csv").set_index("allele")
+            df_b = pd.read_csv(f"{this_file_directory_path}/data/B.csv").set_index("allele")
+            df_c = pd.read_csv(f"{this_file_directory_path}/data/C.csv").set_index("allele")
+            # we don't want to load .csv files if they are not needed
+            df_dr = pd.read_csv(f"{this_file_directory_path}/data/DR.csv", usecols=[0]).set_index("allele")
+            df_dq = pd.read_csv(f"{this_file_directory_path}/data/DQ.csv", usecols=[0]).set_index("allele")
+            df_dp = pd.read_csv(f"{this_file_directory_path}/data/DP.csv", usecols=[0]).set_index("allele")
+        else:
+            df_dr = pd.read_csv(f"{this_file_directory_path}/data/DR.csv").set_index("allele")
+            df_dq = pd.read_csv(f"{this_file_directory_path}/data/DQ.csv").set_index("allele")
+            df_dp = pd.read_csv(f"{this_file_directory_path}/data/DP.csv").set_index("allele")
+            # we don't want to load .csv files if they are not needed
+            df_a = pd.read_csv(f"{this_file_directory_path}/data/A.csv", usecols=[0]).set_index("allele")
+            df_b = pd.read_csv(f"{this_file_directory_path}/data/B.csv", usecols=[0]).set_index("allele")
+            df_c = pd.read_csv(f"{this_file_directory_path}/data/C.csv", usecols=[0]).set_index("allele")
+
+
     df_data = pd.read_csv(f"{this_file_directory_path}/data/ep_data.csv")
 
     input_df_donor, removed_donors = delete_unexpected_alleles(

@@ -1,13 +1,8 @@
 import pandas as pd
 
 
-def read_available_alleles(df_ref: pd.DataFrame | None) -> list[str]:
-    list_ref: list[str]
-
-    if df_ref is not None:
-        list_ref = list(df_ref.index.values)
-    else:
-        list_ref = []
+def read_available_alleles(df_ref: pd.DataFrame) -> list[str]:
+    list_ref: list[str] = list(df_ref.index.values)
 
     return list_ref
 
