@@ -10,14 +10,14 @@ To use `pecc`, run `pip install pecc` in your terminal.
 
 
 #### Usage
-Here is a minimal example with the file Template.xlsx (click to download):
+Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pecc/raw/main/Template.xlsx) (click to download):
 ```py
 import pandas as pd
 import pecc
 
 
 if __name__ == "__main__":
-    input_path: str = "scoresSFHI.xlsx"
+    input_path: str = "Template.xlsx"
 
     output_path: str
     for output_path, sheet_name in zip(
