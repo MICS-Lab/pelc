@@ -8,7 +8,7 @@ from tests.base_loading_for_tests import base_loading
 
 def test_epitope_comparison_details() -> None:
     ## False Positives
-    donordf, recipientdf, output_path = base_loading("False Pos")
+    donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Pos")
 
     compute_epitopic_charge(
         donordf,
@@ -39,7 +39,7 @@ def test_epitope_comparison_details() -> None:
 
 
     ## False Negatives
-    donordf, recipientdf, output_path = base_loading("False Negs")
+    donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
     compute_epitopic_charge(
         donordf,
@@ -81,7 +81,7 @@ def test_epitope_comparison_details() -> None:
 
 
 def test_epitope_comparison_count() -> None:
-    donordf, recipientdf, output_path = base_loading("False Negs")
+    donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
     compute_epitopic_charge(
         donordf,
@@ -104,7 +104,7 @@ def test_epitope_comparison_count() -> None:
 
 
 def test_epitope_comparison_isolated_classes() -> None:
-    donordf, recipientdf, output_path = base_loading("False Negs")
+    donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
     ## Only class I
     compute_epitopic_charge(
@@ -130,7 +130,7 @@ def test_epitope_comparison_isolated_classes() -> None:
     os.remove(f"{output_path}.csv")
 
     # Only class II (False Positives)
-    donordf, recipientdf, output_path = base_loading("False Pos")
+    donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Pos")
     compute_epitopic_charge(
         donordf,
         recipientdf,

@@ -8,7 +8,7 @@ from tests.base_loading_for_tests import base_loading
 
 def test_unexpected_alleles() -> None:
     # No exclude
-    donordf, recipientdf, output_path = base_loading("False Negs")
+    donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
     compute_epitopic_charge(
         donordf,
