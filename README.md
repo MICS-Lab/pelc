@@ -3,7 +3,7 @@
 ### Overview
 PECC is a python package designed to calculate efficiently the HLA Epitopic Charge (based on the
 [EpRegistry database](https://www.epregistry.com.br/)) between donors and recipients by loading in a pandas.DataFrame
-in epitope_comparison.compute_epitopi_charge.  See minimal reproducible example for more details.
+in `epitope_comparison.compute_epitopic_charge`.  See minimal reproducible example for more details.
 
 
 ### Getting started
