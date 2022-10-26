@@ -156,3 +156,45 @@ def test_epitope_comparison_isolated_classes() -> None:
     # But here we only care about class II so it should not appear
 
     os.remove(f"{output_path}.csv")
+
+
+def test_epitope_comparison_dr13() -> None:
+    ## False Positives
+    donordf, recipientdf, output_path = base_loading("pytest_dr13.xlsx", "False Pos")
+
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.ONLY_DETAILS,
+        False,
+        True,
+        False,
+    )
+
+    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    assert (output_df_fp.at[8, "EpMismatches"] == "86G_DR")
+
+    os.remove(f"{output_path}.csv")
+
+
+    ## False Negatives
+    donordf, recipientdf, output_path = base_loading("pytest_dr13.xlsx", "False Negs")
+
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.ONLY_DETAILS,
+        False,
+        True,
+        False,
+    )
+
+    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    assert ("86V_DR" in output_df_fn.at[8, "EpMismatches"])
+    assert ("85VV_DR" in output_df_fn.at[8, "EpMismatches"])
+
+    os.remove(f"{output_path}.csv")
