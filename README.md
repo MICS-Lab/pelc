@@ -10,7 +10,52 @@ To use `pecc`, run `pip install pecc` in your terminal.
 
 
 #### Usage
+Here is a minimal example with the file Template.xlsx (click to download):
+```py
+import pandas as pd
+import pecc
 
+
+if __name__ == "__main__":
+    input_path: str = "scoresSFHI.xlsx"
+
+    output_path: str
+    for output_path, sheet_name in zip(
+        [f"{input_path[:-5]}_pecc_fn", f"{input_path[:-5]}_pecc_fp"],
+        ["False Negatives", "False Positives"],
+    ):
+        class_: str
+        for class_ in ["CL1", "CL2", "all"]:
+            input_df: pd.DataFrame = pd.read_excel(
+                input_path, sheet_name=sheet_name, skiprows=[0], index_col="Index"
+            )
+
+            donordf: pd.DataFrame
+            recipientdf: pd.DataFrame
+            donordf, recipientdf = pecc.epitope_comparison_aux.split_dataframe(input_df)
+
+            pecc.epitope_comparison.compute_epitopic_charge(
+                donordf,
+                recipientdf,
+                f"{output_path}_{class_}",
+                pecc.output_type.OutputType.DETAILS_AND_COUNT,
+                class_ == "CL1" or class_ == "all",
+                class_ == "CL2" or class_ == "all",
+                False,
+                exclude=[
+                    423,
+                    643,
+                    928,
+                    1317,
+                    1490,
+                    1550,
+                    1612,
+                    1638,
+                    1796,
+                    2114,
+                ]
+            )
+```
 
 #### Exit codes:
 ```

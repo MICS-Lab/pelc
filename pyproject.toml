@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pecc"
-version = "0.1.1"
+version = "0.2.0"
 description = "Python Epitopic Charge Calculator"
 authors = ["JasonMendoza2008 <lhotteromain@gmail.com>"]
 readme = "README.md"
