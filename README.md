@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/555576588.svg)](https://zenodo.org/badge/latestdoi/555576588)
+[![Downloads](https://pepy.tech/badge/pecc)](https://pepy.tech/project/pecc)
 # PECC (Python Epitopic Charge Calculator)
 
 ### Overview
