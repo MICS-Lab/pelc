@@ -1,2 +1,2 @@
-python unit_tests_simple.py
+python unit_tests_mypy.py
 pause
