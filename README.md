@@ -51,36 +51,36 @@ rootdir: C:\Users\lhott\Documents\Formation scolaire\These\Travail\pecc
 plugins: mypy-0.10.0
 collected 19 items                                                                                                                                     
 
-unit_tests_mypy.py ..                                                                                            [ 10%]
-unit_tests_simple.py .                                                                                           [ 15%] 
-pecc\__init__.py .                                                                                               [ 21%] 
-pecc\_unexpected_alleles.py .                                                                                    [ 26%] 
-pecc\epitope_comparison.py .                                                                                     [ 31%] 
-pecc\epitope_comparison_aux.py .                                                                                 [ 36%] 
-pecc\output_type.py .                                                                                            [ 42%] 
-tests\__init__.py .                                                                                              [ 47%] 
-tests\base_loading_for_tests.py .                                                                                [ 52%] 
-tests\test_epitope_mismatches.py .....                                                                           [ 78%]
-tests\test_pecc.py ..                                                                                            [ 89%] 
-tests\test_unexpected_alleles.py ..                                                                              [100%]
+unit_tests_mypy.py ..                                                               [ 10%]
+unit_tests_simple.py .                                                              [ 15%] 
+pecc\__init__.py .                                                                  [ 21%] 
+pecc\_unexpected_alleles.py .                                                       [ 26%] 
+pecc\epitope_comparison.py .                                                        [ 31%] 
+pecc\epitope_comparison_aux.py .                                                    [ 36%] 
+pecc\output_type.py .                                                               [ 42%] 
+tests\__init__.py .                                                                 [ 47%] 
+tests\base_loading_for_tests.py .                                                   [ 52%] 
+tests\test_epitope_mismatches.py .....                                              [ 78%]
+tests\test_pecc.py ..                                                               [ 89%] 
+tests\test_unexpected_alleles.py ..                                                 [100%]
 ```
 ```
 platform win32 -- Python 3.11.0, pytest-7.2.0, pluggy-1.0.0
 plugins: mypy-0.10.0
 collected 19 items
 
-unit_tests_mypy.py ..                                                                                            [ 10%]
-unit_tests_simple.py .                                                                                           [ 15%]
-pecc\__init__.py .                                                                                               [ 21%]
-pecc\_unexpected_alleles.py .                                                                                    [ 26%]
-pecc\epitope_comparison.py .                                                                                     [ 31%]
-pecc\epitope_comparison_aux.py .                                                                                 [ 36%]
-pecc\output_type.py .                                                                                            [ 42%]
-tests\__init__.py .                                                                                              [ 47%]
-tests\base_loading_for_tests.py .                                                                                [ 52%]
-tests\test_epitope_mismatches.py .....                                                                           [ 78%]
-tests\test_pecc.py ..                                                                                            [ 89%]
-tests\test_unexpected_alleles.py ..                                                                              [100%]
+unit_tests_mypy.py ..                                                               [ 10%]
+unit_tests_simple.py .                                                              [ 15%]
+pecc\__init__.py .                                                                  [ 21%]
+pecc\_unexpected_alleles.py .                                                       [ 26%]
+pecc\epitope_comparison.py .                                                        [ 31%]
+pecc\epitope_comparison_aux.py .                                                    [ 36%]
+pecc\output_type.py .                                                               [ 42%]
+tests\__init__.py .                                                                 [ 47%]
+tests\base_loading_for_tests.py .                                                   [ 52%]
+tests\test_epitope_mismatches.py .....                                              [ 78%]
+tests\test_pecc.py ..                                                               [ 89%]
+tests\test_unexpected_alleles.py ..                                                 [100%]
 ```
 
 
