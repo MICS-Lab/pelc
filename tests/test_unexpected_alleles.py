@@ -20,11 +20,11 @@ def test_unexpected_alleles() -> None:
         False,
     )
 
-    removed_donors: pd.DataFrame = pd.read_csv(f"{output_path}_removed_donors.csv")
-    removed_recipients: pd.DataFrame = pd.read_csv(f"{output_path}_removed_recipients.csv")
+    removed_donors_no_exclude: pd.DataFrame = pd.read_csv(f"{output_path}_removed_donors.csv")
+    removed_recipients_no_exclude: pd.DataFrame = pd.read_csv(f"{output_path}_removed_recipients.csv")
 
-    assert (len(removed_donors) == 1)
-    assert (len(removed_recipients) == 0)
+    assert (len(removed_donors_no_exclude) == 1)
+    assert (len(removed_recipients_no_exclude) == 0)
 
     os.remove(f"{output_path}_removed_donors.csv")
     os.remove(f"{output_path}_removed_recipients.csv")
@@ -41,11 +41,11 @@ def test_unexpected_alleles() -> None:
         [4]
     )
 
-    removed_donors: pd.DataFrame = pd.read_csv(f"{output_path}_removed_donors.csv")
-    removed_recipients: pd.DataFrame = pd.read_csv(f"{output_path}_removed_recipients.csv")
+    removed_donors_exclude: pd.DataFrame = pd.read_csv(f"{output_path}_removed_donors.csv")
+    removed_recipients_exclude: pd.DataFrame = pd.read_csv(f"{output_path}_removed_recipients.csv")
 
-    assert (len(removed_donors) == 0)
-    assert (len(removed_recipients) == 0)
+    assert (len(removed_donors_exclude) == 0)
+    assert (len(removed_recipients_exclude) == 0)
 
     os.remove(f"{output_path}_removed_donors.csv")
     os.remove(f"{output_path}_removed_recipients.csv")

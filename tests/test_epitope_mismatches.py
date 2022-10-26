@@ -24,14 +24,14 @@ def test_epitope_comparison_details() -> None:
 
     assert output_df_fp.at[1, "EpMismatches"] == "None"
 
-    list_mismatches_2: list[str] = output_df_fp.at[2, "EpMismatches"].split(", ")
-    assert ("37FV_DR" not in list_mismatches_2)
+    list_mismatches_2_fp: list[str] = output_df_fp.at[2, "EpMismatches"].split(", ")
+    assert ("37FV_DR" not in list_mismatches_2_fp)
     # Not a mismatch (not in the prediction nor in the true typing)
-    assert ("57S_DR" not in list_mismatches_2)
+    assert ("57S_DR" not in list_mismatches_2_fp)
     # This is a false negative (in DRB1*04:05 (true typing) but not in DRB1*04:04 (predicted typing))
 
-    list_mismatches_5: list[str] = output_df_fp.at[5, "EpMismatches"].split(", ")
-    assert ("97W_ABC" in list_mismatches_5)
+    list_mismatches_5_fp: list[str] = output_df_fp.at[5, "EpMismatches"].split(", ")
+    assert ("97W_ABC" in list_mismatches_5_fp)
     # Present on B*14:02 (predicted) but not on B*14:10 (true typing) and isn't compensated by loci HLA-A or HLA-C.
     # Therefore is a false positive.
 
@@ -67,14 +67,14 @@ def test_epitope_comparison_details() -> None:
     assert ("rp37FV" not in list_mismatches_1)
     # The mismatch is a DQ mismatch and this is a DR / DP eplet
 
-    list_mismatches_2: list[str] = output_df_fn.at[2, "EpMismatches"].split(", ")
-    assert ("37FV_DR" not in list_mismatches_2)
+    list_mismatches_2_fn: list[str] = output_df_fn.at[2, "EpMismatches"].split(", ")
+    assert ("37FV_DR" not in list_mismatches_2_fn)
     # Not a mismatch (not in the prediction nor in the true typing)
-    assert ("57S_DR" in list_mismatches_2)
+    assert ("57S_DR" in list_mismatches_2_fn)
     # This is a false negative
 
-    list_mismatches_5: list[str] = output_df_fn.at[5, "EpMismatches"].split(", ")
-    assert (list_mismatches_5 == ["None"])
+    list_mismatches_5_fn: list[str] = output_df_fn.at[5, "EpMismatches"].split(", ")
+    assert (list_mismatches_5_fn == ["None"])
     # All the eplet mismatches are compensated by B*35:01
 
     os.remove(f"{output_path}.csv")
