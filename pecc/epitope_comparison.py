@@ -4,7 +4,7 @@ import logging
 import os
 import pandas as pd
 
-from pecc.epitope_comparison_aux import _allele_df_to_epitopes_df, _rank_eplets
+from pecc.epitope_comparison_aux import _allele_df_to_epitopes_df, _extract_key_to_rank_eplets
 from pecc.output_type import OutputType
 from pecc._unexpected_alleles import delete_unexpected_alleles, remove_unexpected_other_individual
 
@@ -127,7 +127,7 @@ def compute_epitopic_charge(
                 epitope_charge_detail = epitope_charge_detail.apply(
                     lambda list_: sorted(
                         list_,
-                        key=_rank_eplets
+                        key=_extract_key_to_rank_eplets
                     )
                 )
                 epitope_charge_detail = epitope_charge_detail.astype(str)
