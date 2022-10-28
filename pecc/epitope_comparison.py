@@ -4,9 +4,16 @@ import logging
 import os
 import pandas as pd
 
-from pecc.epitope_comparison_aux import _allele_df_to_epitopes_df, _extract_key_to_rank_eplets
+from pecc.epitope_comparison_aux import (
+    _allele_df_to_epitopes_df,
+    _transform_epitope_charge_detail
+)
+
 from pecc.output_type import OutputType
-from pecc._unexpected_alleles import delete_unexpected_alleles, remove_unexpected_other_individual
+from pecc._unexpected_alleles import (
+    delete_unexpected_alleles,
+    remove_unexpected_other_individual,
+)
 
 
 # MAIN
@@ -123,20 +130,7 @@ def compute_epitopic_charge(
         if output_type == OutputType.DETAILS_AND_COUNT or output_type == OutputType.COUNT:
             epitope_charge: pd.Series = epitope_charge_detail.apply(len).rename("Epitopic Charge")
             if output_type == OutputType.DETAILS_AND_COUNT:
-                epitope_charge_detail = epitope_charge_detail.apply(list)
-                epitope_charge_detail = epitope_charge_detail.apply(
-                    lambda list_: sorted(
-                        list_,
-                        key=_extract_key_to_rank_eplets
-                    )
-                )
-                epitope_charge_detail = epitope_charge_detail.astype(str)
-                epitope_charge_detail = (
-                    epitope_charge_detail.replace("\\[\\]", "None", regex=True)
-                                         .replace("\\[", "", regex=True)
-                                         .replace("\\]", "", regex=True)
-                                         .replace("'", "", regex=True)
-                )
+                epitope_charge_detail = _transform_epitope_charge_detail(epitope_charge_detail)
                 pd.concat(
                     [epitope_charge, epitope_charge_detail],
                     axis=1
@@ -144,11 +138,5 @@ def compute_epitopic_charge(
             else:  # OutputType.COUNT
                 epitope_charge.to_csv(f"{output_path}.csv")
         elif output_type == OutputType.ONLY_DETAILS:
-            epitope_charge_detail = epitope_charge_detail.astype(str)
-            epitope_charge_detail = (
-                epitope_charge_detail.replace("set()", "None")
-                                     .replace("{", "", regex=True)
-                                     .replace("}", "", regex=True)
-                                     .replace("'", "", regex=True)
-            )
+            epitope_charge_detail = _transform_epitope_charge_detail(epitope_charge_detail)
             epitope_charge_detail.to_csv(f"{output_path}.csv", quoting=csv.QUOTE_NONNUMERIC)

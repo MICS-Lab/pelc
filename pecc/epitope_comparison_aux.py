@@ -136,3 +136,21 @@ def _extract_key_to_rank_eplets(eplet: str) -> float:
     else:
         return float('inf')  # inf will guarantee this comes last
 
+
+def _transform_epitope_charge_detail(epitope_charge_detail: pd.Series) -> pd.Series:
+    epitope_charge_detail = epitope_charge_detail.apply(list)
+    epitope_charge_detail = epitope_charge_detail.apply(
+        lambda list_: sorted(
+            list_,
+            key=_extract_key_to_rank_eplets
+        )
+    )
+    epitope_charge_detail = epitope_charge_detail.astype(str)
+    epitope_charge_detail = (
+        epitope_charge_detail.replace("[]", "None")  # no regex no need to escape
+        .replace("\\[", "", regex=True)
+        .replace("\\]", "", regex=True)
+        .replace("'", "", regex=True)
+    )
+
+    return epitope_charge_detail
