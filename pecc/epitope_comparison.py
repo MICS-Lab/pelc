@@ -4,7 +4,7 @@ import logging
 import os
 import pandas as pd
 
-from pecc.epitope_comparison_aux import _allele_df_to_epitopes_df
+from pecc.epitope_comparison_aux import _allele_df_to_epitopes_df, _rank_eplets
 from pecc.output_type import OutputType
 from pecc._unexpected_alleles import delete_unexpected_alleles, remove_unexpected_other_individual
 
@@ -123,6 +123,13 @@ def compute_epitopic_charge(
         if output_type == OutputType.DETAILS_AND_COUNT or output_type == OutputType.COUNT:
             epitope_charge: pd.Series = epitope_charge_detail.apply(len).rename("Epitopic Charge")
             if output_type == OutputType.DETAILS_AND_COUNT:
+                epitope_charge_detail = epitope_charge_detail.apply(list)
+                epitope_charge_detail = epitope_charge_detail.apply(
+                    lambda list_: sorted(
+                        list_,
+                        key=_rank_eplets
+                    )
+                )
                 epitope_charge_detail = epitope_charge_detail.astype(str)
                 epitope_charge_detail = (
                     epitope_charge_detail.replace("set()", "None")

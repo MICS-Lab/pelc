@@ -1,6 +1,7 @@
 # IMPORTS
 import logging
 import pandas as pd
+import re
 
 # FUNCTIONS
 def split_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -119,3 +120,19 @@ def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp, interlo
     # epitope content of its allele.
 
     return epitope_per_allele_dataframe
+
+
+def _extract_key_to_rank_eplets(eplet: str) -> float:
+    """
+    :param eplet: e.g. "9Y" or "26L"
+    :return: the position but as a float so that sorting ain't gonna be done alphanumerically (9 or 26)
+
+    If interlocus eplet, then return float('inf')
+    """
+    starts_with_number = re.search(r"^\d+", eplet)
+    if starts_with_number:
+        number = int(starts_with_number.group())
+        return number
+    else:
+        return float('inf')  # inf will guarantee this comes last
+
