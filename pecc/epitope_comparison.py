@@ -132,9 +132,9 @@ def compute_epitopic_charge(
                 )
                 epitope_charge_detail = epitope_charge_detail.astype(str)
                 epitope_charge_detail = (
-                    epitope_charge_detail.replace("set()", "None")
-                                         .replace("[", "", regex=True)
-                                         .replace("]", "", regex=True)
+                    epitope_charge_detail.replace("\\[\\]", "None", regex=True)
+                                         .replace("\\[", "", regex=True)
+                                         .replace("\\]", "", regex=True)
                                          .replace("'", "", regex=True)
                 )
                 pd.concat(
