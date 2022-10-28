@@ -18,6 +18,7 @@ def compute_epitopic_charge(
     class_ii: bool = True,
     verifiedonly: bool = False,
     exclude: list[int | str] | None = None,
+    interlocus2: bool = True
 ) -> None:
     """
     :param input_df_donor: Input Donors Typing pandas.DataFrame
@@ -28,6 +29,7 @@ def compute_epitopic_charge(
     :param class_ii: Compute class II epitopes comparison?
     :param verifiedonly: How should the peitopic charge be computed Verified epitopes only? Or all epitopes?
     :param exclude: list of indices to exclude
+    :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
 
     :return: None
     """
@@ -94,10 +96,10 @@ def compute_epitopic_charge(
         input_df_donor, input_df_recipient = remove_unexpected_other_individual(input_df_donor, input_df_recipient)
 
         donors_epitopes_per_allele: pd.DataFrame = _allele_df_to_epitopes_df(
-            input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp
+            input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp, interlocus2
         )
         recipients_epitopes_per_allele: pd.DataFrame = _allele_df_to_epitopes_df(
-            input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp
+            input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp, interlocus2
         )
 
         # Concatenate all loci

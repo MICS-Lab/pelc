@@ -14,11 +14,13 @@ def split_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return df.filter(regex='_D').copy(), df.filter(regex='_R').copy()
 
 
-def _convert_to_epitopes(allele: str, df_ref: pd.DataFrame, suffix: str) -> list[str]:
+def _convert_to_epitopes(allele: str, df_ref: pd.DataFrame, suffix: str, interlocus2: bool) -> list[str]:
     """
     :param allele: allele to convert
     :param df_ref: reference pandas.DataFrame for the locus of the allele
     :param suffix: which locus the allele belongs to
+    :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
+
 
     :return: list of epitopes corresponding the allele
     """
@@ -27,7 +29,8 @@ def _convert_to_epitopes(allele: str, df_ref: pd.DataFrame, suffix: str) -> list
     for epitope in df_ref.loc[allele].values:
         if not pd.isnull(epitope):
             if epitope[0] in ["r", "q", "p"]:
-                epitope_list.append(epitope)
+                if interlocus2:
+                    epitope_list.append(epitope)
             else:
                 epitope_list.append(f"{epitope}_{suffix}")
 
@@ -35,7 +38,7 @@ def _convert_to_epitopes(allele: str, df_ref: pd.DataFrame, suffix: str) -> list
 
 
 
-def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp):
+def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp, interlocus2: bool):
     """
     Extraction of the allele dataframe to transform it into an epitope dictionary
 
@@ -46,6 +49,7 @@ def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp):
     :param df_dr: reference dataframe HLA DRB1
     :param df_dq: reference dataframe HLA DQB1
     :param df_dp: reference dataframe HLA DPB1
+    :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
     """
 
     epitope_per_allele_dataframe: pd.DataFrame = df.applymap(
@@ -53,14 +57,16 @@ def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp):
         _convert_to_epitopes(
             allele,
             df_a,
-            "ABC"
+            "ABC",
+            interlocus2
         )
         if allele[0] == "A"
         else (
             _convert_to_epitopes(
                 allele,
                 df_b,
-                "ABC"
+                "ABC",
+                interlocus2
             )
             if allele[0] == "B"
             else
@@ -68,7 +74,8 @@ def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp):
                 _convert_to_epitopes(
                     allele,
                     df_c,
-                    "ABC"
+                    "ABC",
+                    interlocus2
                 )
                 if allele[0] == "C"
                 else
@@ -76,7 +83,8 @@ def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp):
                     _convert_to_epitopes(
                         allele,
                         df_dr,
-                        "DR"
+                        "DR",
+                        interlocus2
                     )
                     if allele[0:2] == "DR"
                     else
@@ -84,7 +92,8 @@ def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp):
                         _convert_to_epitopes(
                             allele,
                             df_dq,
-                            "DQ"
+                            "DQ",
+                            interlocus2
                         )
                         if allele[0:2] == "DQ"
                         else
@@ -92,7 +101,8 @@ def _allele_df_to_epitopes_df(df, df_a, df_b, df_c, df_dr, df_dq, df_dp):
                             _convert_to_epitopes(
                                 allele,
                                 df_dp,
-                                "DP"
+                                "DP",
+                                interlocus2
                             )
                             if allele[0:2] == "DP"
                             else
