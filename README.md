@@ -107,7 +107,7 @@ If you use this software, please cite it as below.
 
 - APA:
 ```
-Lhotte, R., Usureau, C., & Taupin, J. (2022). Python Epitope Charge Calculator (Version 0.2.2) [Computer software].
+Lhotte, R., Usureau, C., & Taupin, J. (2022). Python Epitope Charge Calculator (Version 0.2.3) [Computer software].
 https://doi.org/doi.org/10.5281/zenodo.7254809
 ```
 
