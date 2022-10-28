@@ -120,5 +120,5 @@ https://doi.org/doi.org/10.5281/zenodo.7254809
     title = {{Python Epitope Charge Calculator}},
     version = {0.2.2},
     year = {2022}
-    }
+}
 ```
