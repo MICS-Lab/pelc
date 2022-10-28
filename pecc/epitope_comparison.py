@@ -1,4 +1,5 @@
 # IMPORTS
+import csv
 import logging
 import os
 import pandas as pd
@@ -132,7 +133,7 @@ def compute_epitopic_charge(
                 pd.concat(
                     [epitope_charge, epitope_charge_detail],
                     axis=1
-                ).to_csv(f"{output_path}.csv")
+                ).to_csv(f"{output_path}.csv", quoting=csv.QUOTE_NONNUMERIC)
             else:  # OutputType.COUNT
                 epitope_charge.to_csv(f"{output_path}.csv")
         elif output_type == OutputType.ONLY_DETAILS:
@@ -143,4 +144,4 @@ def compute_epitopic_charge(
                                      .replace("}", "", regex=True)
                                      .replace("'", "", regex=True)
             )
-            epitope_charge_detail.to_csv(f"{output_path}.csv")
+            epitope_charge_detail.to_csv(f"{output_path}.csv", quoting=csv.QUOTE_NONNUMERIC)
