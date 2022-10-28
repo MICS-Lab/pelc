@@ -64,7 +64,7 @@ pecc\epitope_comparison_aux.py .                                                
 pecc\output_type.py .                                                               [ 42%] 
 tests\__init__.py .                                                                 [ 47%] 
 tests\base_loading_for_tests.py .                                                   [ 52%] 
-tests\test_epitope_mismatches.py .....                                              [ 78%]
+tests\test_epitope_mismatches.py ......                                             [ 78%]
 tests\test_pecc.py ..                                                               [ 89%] 
 tests\test_unexpected_alleles.py ..                                                 [100%]
 ```
@@ -82,7 +82,7 @@ pecc\epitope_comparison_aux.py .                                                
 pecc\output_type.py .                                                               [ 42%]
 tests\__init__.py .                                                                 [ 47%]
 tests\base_loading_for_tests.py .                                                   [ 52%]
-tests\test_epitope_mismatches.py .....                                              [ 78%]
+tests\test_epitope_mismatches.py ......                                             [ 78%]
 tests\test_pecc.py ..                                                               [ 89%]
 tests\test_unexpected_alleles.py ..                                                 [100%]
 ```
@@ -107,7 +107,7 @@ If you use this software, please cite it as below.
 
 - APA:
 ```
-Lhotte, R., Usureau, C., & Taupin, J. (2022). Python Epitope Charge Calculator (Version 0.2.1) [Computer software].
+Lhotte, R., Usureau, C., & Taupin, J. (2022). Python Epitope Charge Calculator (Version 0.2.2) [Computer software].
 https://doi.org/doi.org/10.5281/zenodo.7254809
 ```
 
@@ -118,7 +118,7 @@ author = {Lhotte, Romain and Usureau, Cédric and Taupin, Jean-Luc},
 doi = {doi.org/10.5281/zenodo.7254809},
 month = {10},
 title = {{Python Epitope Charge Calculator}},
-version = {0.2.1},
+version = {0.2.2},
 year = {2022}
 }
 ```

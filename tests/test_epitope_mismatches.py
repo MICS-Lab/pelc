@@ -60,8 +60,7 @@ def test_epitope_comparison_details() -> None:
     assert ("rq26Y" in list_mismatches_1)
     # rq26Y is in DQB1*03:01 but not in DQB1*03:02 (can be checked by aligning the sequences on
     # https://www.ebi.ac.uk/ipd/imgt/hla/alignment/)
-    # The prediction does not output rq26Y although it should
-    # rq26Y is therefore a false negative
+    # The prediction does not output rq26Y although it should - rq26Y is therefore a false negative
     assert ("rqp37YA" not in list_mismatches_1)
     # Both have this eplet
     assert ("rp37FV" not in list_mismatches_1)
@@ -196,5 +195,35 @@ def test_epitope_comparison_dr13() -> None:
 
     assert ("86V_DR" in output_df_fn.at[8, "EpMismatches"])
     assert ("85VV_DR" in output_df_fn.at[8, "EpMismatches"])
+
+    os.remove(f"{output_path}.csv")
+
+
+def test_interlocus2() -> None:
+    donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
+
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.ONLY_DETAILS,
+        True,
+        True,
+        False,
+        exclude=None,
+        interlocus2=False
+    )
+
+    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    for index_ in range(6, 2146):
+        assert output_df_fn.at[index_, "EpMismatches"] == "None"
+
+    list_mismatches_1: list[str] = output_df_fn.at[1, "EpMismatches"].split(", ")
+    assert ("rq26Y" not in list_mismatches_1)
+    # rq26Y is in DQB1*03:01 but not in DQB1*03:02 (can be checked by aligning the sequences on
+    # https://www.ebi.ac.uk/ipd/imgt/hla/alignment/)
+    # The prediction does not output rq26Y although it should - rq26Y is therefore a false negative
+    # But we don't want interlocus2 (argument interlocus2 = False).
 
     os.remove(f"{output_path}.csv")
