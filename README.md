@@ -91,8 +91,10 @@ tests\test_unexpected_alleles.py ..                                             
 
 ### About the source code
 - Follows [PEP8](https://peps.python.org/pep-0008/) Style Guidelines.
+- All functions are unit-tested with [pytest](https://docs.pytest.org/en/stable/).
 - All variables are correctly type-hinted, reviewed with [static type checker](https://mypy.readthedocs.io/en/stable/)
 `mypy`.
+- All functions are documented with [docstrings](https://www.python.org/dev/peps/pep-0257/).
 
 
 

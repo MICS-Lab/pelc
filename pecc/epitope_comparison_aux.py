@@ -138,6 +138,10 @@ def _extract_key_to_rank_eplets(eplet: str) -> float:
 
 
 def _transform_epitope_charge_detail(epitope_charge_detail: pd.Series) -> pd.Series:
+    """
+    :param epitope_charge_detail: pd.Series with the epitope charge details
+    :return: pd.Series with the epitope charge details sorted
+    """
     epitope_charge_detail = epitope_charge_detail.apply(list)
     epitope_charge_detail = epitope_charge_detail.apply(
         lambda list_: sorted(
