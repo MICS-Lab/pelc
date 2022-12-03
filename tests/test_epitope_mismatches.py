@@ -198,6 +198,25 @@ def test_epitope_comparison_dr13() -> None:
 
     os.remove(f"{output_path}.csv")
 
+    ## False Positives (AbV only)
+    donordf, recipientdf, output_path = base_loading("pytest_dr13.xlsx", "False Pos")
+
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.ONLY_DETAILS,
+        False,
+        True,
+        True,  # AbV only
+    )
+
+    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    assert (output_df_fp.at[8, "EpMismatches"] == "")  # 86G is not AbV
+
+    os.remove(f"{output_path}.csv")
+
 
 def test_interlocus2() -> None:
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")

@@ -104,10 +104,10 @@ def compute_epitopic_charge(
         input_df_donor, input_df_recipient = remove_unexpected_other_individual(input_df_donor, input_df_recipient)
 
         donors_epitopes_per_allele: pd.DataFrame = _allele_df_to_epitopes_df(
-            input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp, interlocus2
+            input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp, df_data, interlocus2, verifiedonly
         )
         recipients_epitopes_per_allele: pd.DataFrame = _allele_df_to_epitopes_df(
-            input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp, interlocus2
+            input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp, df_data, interlocus2, verifiedonly
         )
 
         # Concatenate all loci
