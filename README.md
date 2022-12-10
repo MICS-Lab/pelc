@@ -41,6 +41,12 @@ if __name__ == "__main__":
     )
 ```
 
+#### Advanced usage:
+If one wants to determine the eplet mismatches between a donor and a recipient but without taking into account
+a certain locus, one can use `A*`, `B*`, ..., `DPB1*` as the allele name for both recipients and donors on this locus
+and the eplet mismatch computation will only take into account the loci filled in.
+
+
 #### Exit codes:
 ```
 None yet.
