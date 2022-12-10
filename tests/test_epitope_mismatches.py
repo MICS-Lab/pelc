@@ -211,9 +211,9 @@ def test_epitope_comparison_dr13() -> None:
         True,  # AbV only
     )
 
-    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fp_abv: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
-    assert (output_df_fp.at[8, "EpMismatches"] == "")  # 86G is not AbV
+    assert (output_df_fp_abv.at[8, "EpMismatches"] == "")  # 86G is not AbV
 
     os.remove(f"{output_path}.csv")
 
