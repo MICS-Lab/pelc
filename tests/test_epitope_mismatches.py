@@ -218,6 +218,53 @@ def test_epitope_comparison_dr13() -> None:
     os.remove(f"{output_path}.csv")
 
 
+def test_epitope_comparison_b35() -> None:
+    ## False Positives (eplets on B*35:08 but not on B*35:02)
+    donordf, recipientdf, output_path = base_loading("pytest_b35.xlsx", "False Pos")
+
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.ONLY_DETAILS,
+        True,
+        False,
+        False,
+    )
+
+    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    assert ("113HD_ABC" in output_df_fp.at[8, "EpMismatches"])
+    assert ("116S_ABC" in output_df_fp.at[8, "EpMismatches"])
+    assert ("156R_ABC" in output_df_fp.at[8, "EpMismatches"])
+    assert ("156RA_ABC" in output_df_fp.at[8, "EpMismatches"])
+
+    os.remove(f"{output_path}.csv")
+
+
+    ## False Negatives (eplets on B*35:02 but not on B*35:08)
+    donordf, recipientdf, output_path = base_loading("pytest_b35.xlsx", "False Negs")
+
+    compute_epitopic_charge(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.ONLY_DETAILS,
+        True,
+        False,
+        False,
+    )
+
+    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+    assert ("109F_ABC" in output_df_fn.at[8, "EpMismatches"])
+    assert ("113HN_ABC" in output_df_fn.at[8, "EpMismatches"])
+    assert ("116Y_ABC" in output_df_fn.at[8, "EpMismatches"])
+    assert ("156L_ABC" in output_df_fn.at[8, "EpMismatches"])
+
+    os.remove(f"{output_path}.csv")
+
+
 def test_interlocus2() -> None:
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
