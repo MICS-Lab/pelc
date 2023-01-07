@@ -181,19 +181,24 @@ def _allele_df_to_epitopes_df(
     return epitope_per_allele_dataframe
 
 
-def _extract_key_to_rank_eplets(eplet: str) -> float:
+def _extract_key_to_rank_eplets(eplet: str) -> int:
     """
     :param eplet: e.g. "9Y" or "26L"
     :return: the position but as a float so that sorting ain't gonna be done alphanumerically (9 or 26)
 
-    If interlocus eplet, then return float('inf')
+    If interlocus eplet, then return 1000 + position (e.g. 1037 for rqp37YA)
     """
     starts_with_number = re.search(r"^\d+", eplet)
     if starts_with_number:
         number = int(starts_with_number.group())
         return number
     else:
-        return float('inf')  # inf will guarantee this comes last
+        extract_number = re.search(r"^.[pqr]*(\d+)", eplet)
+        if extract_number:
+            return 1000 + int(extract_number.group(1))  # 1000 will guarantee this comes last
+        else:
+            logging.error(f"Eplet {eplet} does not have the expected format")
+            exit(55)
 
 
 def _transform_epitope_charge_detail(epitope_charge_detail: pd.Series) -> pd.Series:

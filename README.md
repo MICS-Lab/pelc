@@ -49,7 +49,8 @@ and the eplet mismatch computation will only take into account the loci filled i
 
 #### Exit codes:
 ```
-None yet.
+- 55: an eplet did not match the regular expression '^\d+' (ABC, DR, DQ or DP) and it also did not match the regular
+expression '^.[pqr]*(\d+)' (interlocus2) either.
 ```
 
 
