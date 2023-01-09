@@ -1,24 +1,24 @@
 [![DOI](https://zenodo.org/badge/555576588.svg)](https://zenodo.org/badge/latestdoi/555576588)
-[![Downloads](https://pepy.tech/badge/pecc)](https://pepy.tech/project/pecc)
-# PECC (Python Epitopic Charge Calculator)
+[![Downloads](https://pepy.tech/badge/pelc)](https://pepy.tech/project/pelc)
+# PELC (Python Eplet Load Calculator)
 
 ### Overview
-PECC is a Python package designed to calculate efficiently the HLA Epitopic Charge (based on the
+PELC is a Python package designed to calculate efficiently the HLA Eplet Load (based on the
 [EpRegistry database](https://www.epregistry.com.br/)) between donors and recipients by loading in a pandas.DataFrame
 in `epitope_comparison.compute_epitopic_charge`.  See minimal reproducible example for more details.
 
 
 ### Getting started
 #### Install from PyPI (recommended)
-To use `pecc`, run `pip install pecc` in your terminal.
+To use `pelc`, run `pip install pelc` in your terminal.
 
 
 #### Usage
-Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pecc/raw/main/Template.xlsx) (click to download):
+Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pelc/raw/main/Template.xlsx) (click to download):
 ```py
 import pandas as pd
 
-from pecc import epitope_comparison, epitope_comparison_aux, output_type
+from pelc import epitope_comparison, epitope_comparison_aux, output_type
 
 
 if __name__ == "__main__":
@@ -58,21 +58,20 @@ expression '^.[pqr]*(\d+)' (interlocus2) either.
 Tested on `Python 3.10.2` & `Python 3.11.0`.
 ```
 platform win32 -- Python 3.10.2, pytest-7.2.0, pluggy-1.0.0
-rootdir: C:\Users\lhott\Documents\Formation scolaire\These\Travail\pecc
 plugins: mypy-0.10.0
 collected 19 items                                                                                                                                     
 
 unit_tests_mypy.py ..                                                               [ 10%]
 unit_tests_simple.py .                                                              [ 15%] 
-pecc\__init__.py .                                                                  [ 21%] 
-pecc\_unexpected_alleles.py .                                                       [ 26%] 
-pecc\epitope_comparison.py .                                                        [ 31%] 
-pecc\epitope_comparison_aux.py .                                                    [ 36%] 
-pecc\output_type.py .                                                               [ 42%] 
+pelc\__init__.py .                                                                  [ 21%] 
+pelc\_unexpected_alleles.py .                                                       [ 26%] 
+pelc\epitope_comparison.py .                                                        [ 31%] 
+pelc\epitope_comparison_aux.py .                                                    [ 36%] 
+pelc\output_type.py .                                                               [ 42%] 
 tests\__init__.py .                                                                 [ 47%] 
 tests\base_loading_for_tests.py .                                                   [ 52%] 
 tests\test_epitope_mismatches.py ......                                             [ 78%]
-tests\test_pecc.py ..                                                               [ 89%] 
+tests\test_pelc.py ..                                                               [ 89%] 
 tests\test_unexpected_alleles.py ..                                                 [100%]
 ```
 ```
@@ -82,15 +81,15 @@ collected 19 items
 
 unit_tests_mypy.py ..                                                               [ 10%]
 unit_tests_simple.py .                                                              [ 15%]
-pecc\__init__.py .                                                                  [ 21%]
-pecc\_unexpected_alleles.py .                                                       [ 26%]
-pecc\epitope_comparison.py .                                                        [ 31%]
-pecc\epitope_comparison_aux.py .                                                    [ 36%]
-pecc\output_type.py .                                                               [ 42%]
+pelc\__init__.py .                                                                  [ 21%]
+pelc\_unexpected_alleles.py .                                                       [ 26%]
+pelc\epitope_comparison.py .                                                        [ 31%]
+pelc\epitope_comparison_aux.py .                                                    [ 36%]
+pelc\output_type.py .                                                               [ 42%]
 tests\__init__.py .                                                                 [ 47%]
 tests\base_loading_for_tests.py .                                                   [ 52%]
 tests\test_epitope_mismatches.py ......                                             [ 78%]
-tests\test_pecc.py ..                                                               [ 89%]
+tests\test_pelc.py ..                                                               [ 89%]
 tests\test_unexpected_alleles.py ..                                                 [100%]
 ```
 
@@ -106,8 +105,8 @@ tests\test_unexpected_alleles.py ..                                             
 
 
 ### Useful links:
-- [Corresponding GitHub repository](https://github.com/MICS-Lab/pecc)
-- [Corresponding PyPI page](https://pypi.org/project/pecc)
+- [Corresponding GitHub repository](https://github.com/MICS-Lab/pelc)
+- [Corresponding PyPI page](https://pypi.org/project/pelc)
 
 
 
@@ -126,7 +125,7 @@ https://doi.org/10.5281/zenodo.7254809
     author = {Lhotte, Romain and Usureau, Cédric and Taupin, Jean-Luc},
     doi = {doi.org/10.5281/zenodo.7254809},
     month = {10},
-    title = {{Python Epitope Charge Calculator}},
+    title = {{Python Eplet Load Calculator}},
     version = {0.3.0},
     year = {2022}
 }
