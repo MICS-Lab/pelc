@@ -1,4 +1,4 @@
-from pecc import __version__
+from pelc import __version__
 
 
 def test_version():

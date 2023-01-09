@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 
-from pecc.epitope_comparison import compute_epitopic_charge
-from pecc.output_type import OutputType
+from pelc.epitope_comparison import compute_epitopic_charge
+from pelc.output_type import OutputType
 from tests.base_loading_for_tests import base_loading
 
 
