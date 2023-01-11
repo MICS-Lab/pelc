@@ -122,18 +122,22 @@ If you use this software, please cite it as below.
 
 - APA:
 ```
-Lhotte, R., Usureau, C., & Taupin, J. (2022). Python Epitope Charge Calculator (Version 0.3.1) [Computer software].
-https://doi.org/10.5281/zenodo.7254809
+If you use this software, please cite it as below. Lhotte, R., Clichet, V., Usureau, C. & Taupin, J. (2022). 
+Python Eplet Load Calculator (PELC) package (Version 0.3.1) [Computer software]. https://doi.org/10.5281/zenodo.7254809
 ```
 
 - BibTeX:
 ```
-@software{Lhotte_Python_Epitope_Charge_2022,
-    author = {Lhotte, Romain and Usureau, Cédric and Taupin, Jean-Luc},
-    doi = {doi.org/10.5281/zenodo.7254809},
-    month = {10},
-    title = {{Python Eplet Load Calculator}},
-    version = {0.3.1},
-    year = {2022}
+@software{lhotte_romain_2022_7526198,
+  author       = {Lhotte, Romain and
+                  Clichet, Valentin and
+                  Usureau, Cédric and
+                  Taupin, Jean-Luc},
+  title        = {Python Eplet Load Calculator},
+  month        = oct,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {0.3.1},
+  doi          = {10.5281/zenodo.7526198},
 }
 ```
