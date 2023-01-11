@@ -15,22 +15,35 @@ def split_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return df.filter(regex='_D').copy(), df.filter(regex='_R').copy()
 
 
-def is_epitope_to_be_added(
-        epitope: str,
+def is_eplet_to_be_added(
+        eplet: str,
         suffix: str,
         df_data: pd.DataFrame,
         verifiedonly: bool = False
 ) -> bool:
+    """
+    Checks whether the eplet should be added
+    :param eplet: is it the correct eplet
+    :param suffix: is it the correct gene (needed because for example 26L is a DR eplet but also a DQ eplet)
+    :param df_data: reference pandas.DataFrame with details about the eplets
+    :param verifiedonly: whether or not to take into account only verified eplets
+
+    :return: whether or not the eplet should be added to the list of eplets
+    """
+
+    if not verifiedonly:
+        # if verified only is False, then we don't care about the 'confirmation' column
+        return True
+
     locus_det: str
-    if epitope[0] in ["r", "q", "p"]:
+    if eplet[0] in ["r", "q", "p"]:
         locus_det = "i2"
     else:
         locus_det = suffix
+
     return (
-        not verifiedonly
-        or
         df_data[
-            (df_data["eplet"] == epitope)
+            (df_data["eplet"] == eplet)
             &
             (df_data["locus"] == locus_det)
         ]["confirmation"].item() == "Yes"
@@ -38,7 +51,7 @@ def is_epitope_to_be_added(
 
 
 
-def _convert_to_epitopes(
+def _convert_to_eplets(
         allele: str,
         df_ref: pd.DataFrame,
         suffix: str,
@@ -50,28 +63,28 @@ def _convert_to_epitopes(
     :param allele: allele to convert
     :param df_ref: reference pandas.DataFrame for the locus of the allele
     :param suffix: which locus the allele belongs to
-    :param df_data: reference pandas.DataFrame with details about the eplets
+    :param df_data: reference pandas.DataFrame with details about all the eplets (ep_data.csv)
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
     :param verifiedonly: whether or not to take into account only verified eplets
 
-    :return: list of epitopes corresponding the allele
+    :return: list of eplets corresponding the allele
     """
 
-    epitope_list: list[str] = []
-    for epitope in df_ref.loc[allele].values:
-        if not pd.isnull(epitope):
-            if is_epitope_to_be_added(epitope, suffix, df_data, verifiedonly):
-                if epitope[0] in ["r", "q", "p"]:
+    eplet_list: list[str] = []
+    for eplet in df_ref.loc[allele].values:
+        if not pd.isnull(eplet):
+            if is_eplet_to_be_added(eplet, suffix, df_data, verifiedonly):
+                if eplet[0] in ["r", "q", "p"]:
                     if interlocus2:
-                        epitope_list.append(epitope)
+                        eplet_list.append(eplet)
                 else:
-                    epitope_list.append(f"{epitope}_{suffix}")
+                    eplet_list.append(f"{eplet}_{suffix}")
 
-    return epitope_list
+    return eplet_list
 
 
 
-def _allele_df_to_epitopes_df(
+def _allele_df_to_eplets_df(
         df: pd.DataFrame,
         df_a: pd.DataFrame,
         df_b: pd.DataFrame,
@@ -84,7 +97,7 @@ def _allele_df_to_epitopes_df(
         verifiedonly: bool = False
 ) -> pd.DataFrame:
     """
-    Transformation of the allele dataframe (index - alleles) into an epitope dataframe (index - epitopes)
+    Transformation of the allele dataframe (index + alleles) into an eplet dataframe (index + eplets)
 
     :param df: is the input dataframe of the donor or the recipient
     :param df_a: reference dataframe HLA A
@@ -93,16 +106,16 @@ def _allele_df_to_epitopes_df(
     :param df_dr: reference dataframe HLA DRB1
     :param df_dq: reference dataframe HLA DQB1
     :param df_dp: reference dataframe HLA DPB1
-    :param df_data: reference pandas.DataFrame with details about the eplets
+    :param df_data: reference pandas.DataFrame with details about all the eplets (ep_data.csv)
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
     :param verifiedonly: whether or not to take into account only verified eplets
 
-    :return: pd.DataFrame with epitopes for each patient, for each locus
+    :return: pd.DataFrame with eplets for each patient, for each locus
     """
 
-    epitope_per_allele_dataframe: pd.DataFrame = df.applymap(
+    eplets_per_allele_dataframe: pd.DataFrame = df.applymap(
         lambda allele:
-        _convert_to_epitopes(
+        _convert_to_eplets(
             allele,
             df_a,
             "ABC",
@@ -112,7 +125,7 @@ def _allele_df_to_epitopes_df(
         )
         if allele[0] == "A"
         else (
-            _convert_to_epitopes(
+            _convert_to_eplets(
                 allele,
                 df_b,
                 "ABC",
@@ -123,7 +136,7 @@ def _allele_df_to_epitopes_df(
             if allele[0] == "B"
             else
             (
-                _convert_to_epitopes(
+                _convert_to_eplets(
                     allele,
                     df_c,
                     "ABC",
@@ -134,7 +147,7 @@ def _allele_df_to_epitopes_df(
                 if allele[0] == "C"
                 else
                 (
-                    _convert_to_epitopes(
+                    _convert_to_eplets(
                         allele,
                         df_dr,
                         "DR",
@@ -145,7 +158,7 @@ def _allele_df_to_epitopes_df(
                     if allele[0:2] == "DR"
                     else
                     (
-                        _convert_to_epitopes(
+                        _convert_to_eplets(
                             allele,
                             df_dq,
                             "DQ",
@@ -156,7 +169,7 @@ def _allele_df_to_epitopes_df(
                         if allele[0:2] == "DQ"
                         else
                         (
-                            _convert_to_epitopes(
+                            _convert_to_eplets(
                                 allele,
                                 df_dp,
                                 "DP",
@@ -176,9 +189,9 @@ def _allele_df_to_epitopes_df(
         )
     )
     # Keep this dataframe in case we would want the user to be able to hover over one of the alleles and to get the
-    # epitope content of its allele.
+    # eplet content of its allele.
 
-    return epitope_per_allele_dataframe
+    return eplets_per_allele_dataframe
 
 
 def _extract_key_to_rank_eplets(eplet: str) -> int:
@@ -201,24 +214,24 @@ def _extract_key_to_rank_eplets(eplet: str) -> int:
             exit(55)
 
 
-def _transform_epitope_charge_detail(epitope_charge_detail: pd.Series) -> pd.Series:
+def _transform_eplet_load_detail(eplet_load_detail: pd.Series) -> pd.Series:
     """
-    :param epitope_charge_detail: pd.Series with the epitope charge details
-    :return: pd.Series with the epitope charge details sorted
+    :param eplet_load_detail: pd.Series with the eplet load details
+    :return: pd.Series with the eplet load details sorted and cleaned up
     """
-    epitope_charge_detail = epitope_charge_detail.apply(list)
-    epitope_charge_detail = epitope_charge_detail.apply(
+    eplet_load_detail = eplet_load_detail.apply(list)
+    eplet_load_detail = eplet_load_detail.apply(
         lambda list_: sorted(
             list_,
             key=_extract_key_to_rank_eplets
         )
     )
-    epitope_charge_detail = epitope_charge_detail.astype(str)
-    epitope_charge_detail = (
-        epitope_charge_detail.replace("[]", "None")  # no regex no need to escape
+    eplet_load_detail = eplet_load_detail.astype(str)
+    eplet_load_detail = (
+        eplet_load_detail.replace("[]", "None")  # no regex no need to escape
         .replace("\\[", "", regex=True)
         .replace("\\]", "", regex=True)
         .replace("'", "", regex=True)
     )
 
-    return epitope_charge_detail
+    return eplet_load_detail

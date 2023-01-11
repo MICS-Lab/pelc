@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from pelc.epitope_comparison import compute_epitopic_charge
+from pelc.eplet_comparison import compute_epletic_load
 from pelc.output_type import OutputType
 from tests.base_loading_for_tests import base_loading
 
@@ -10,7 +10,7 @@ def test_unexpected_alleles() -> None:
     # No exclude
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -30,7 +30,7 @@ def test_unexpected_alleles() -> None:
     os.remove(f"{output_path}_removed_recipients.csv")
 
     # With exclude
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,

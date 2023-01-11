@@ -5,7 +5,8 @@
 ### Overview
 PELC is a Python package designed to calculate efficiently the HLA Eplet Load (based on the
 [EpRegistry database](https://www.epregistry.com.br/)) between donors and recipients by loading in a pandas.DataFrame
-in `epitope_comparison.compute_epitopic_charge`.  See minimal reproducible example for more details.
+in `eplet_comparison.compute_epletic_load` the recipients' and donors' typings.  See minimal reproducible example for
+more details.
 
 
 ### Getting started
@@ -14,12 +15,13 @@ To use `pelc`, run `pip install pelc` in your terminal.
 
 
 #### Usage
-Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pelc/raw/main/Template.xlsx) (click to download):
+Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pelc/raw/main/Template.xlsx)
+(click to download):
+
 ```py
 import pandas as pd
 
-from pelc import epitope_comparison, epitope_comparison_aux, output_type
-
+from pelc import eplet_comparison, eplet_comparison_aux, output_type
 
 if __name__ == "__main__":
     input_path: str = "Template.xlsx"
@@ -31,13 +33,18 @@ if __name__ == "__main__":
 
     donordf: pd.DataFrame
     recipientdf: pd.DataFrame
-    donordf, recipientdf = epitope_comparison_aux.split_dataframe(input_df)
+    donordf, recipientdf = eplet_comparison_aux.split_dataframe(input_df)
 
-    epitope_comparison.compute_epitopic_charge(
+    eplet_comparison.compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
-        output_type.OutputType.DETAILS_AND_COUNT
+        output_type.OutputType.DETAILS_AND_COUNT,
+        class_i = True,  # Compute class I eplets comparison?
+        class_ii = True,  # Compute class II eplets comparison?
+        verifiedonly = False,  # How should the epletic charge be computed? Verified eplets only? Or all eplets?
+        exclude = None,  # list of indices to exclude
+        interlocus2 = True  # whether or not to take into account interlocus eplets for HLA of class II
     )
 ```
 
@@ -115,7 +122,7 @@ If you use this software, please cite it as below.
 
 - APA:
 ```
-Lhotte, R., Usureau, C., & Taupin, J. (2022). Python Epitope Charge Calculator (Version 0.3.0) [Computer software].
+Lhotte, R., Usureau, C., & Taupin, J. (2022). Python Epitope Charge Calculator (Version 0.3.1) [Computer software].
 https://doi.org/10.5281/zenodo.7254809
 ```
 
@@ -126,7 +133,7 @@ https://doi.org/10.5281/zenodo.7254809
     doi = {doi.org/10.5281/zenodo.7254809},
     month = {10},
     title = {{Python Eplet Load Calculator}},
-    version = {0.3.0},
+    version = {0.3.1},
     year = {2022}
 }
 ```

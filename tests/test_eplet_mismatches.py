@@ -1,16 +1,16 @@
 import os
 import pandas as pd
 
-from pelc.epitope_comparison import compute_epitopic_charge
+from pelc.eplet_comparison import compute_epletic_load
 from pelc.output_type import OutputType
 from tests.base_loading_for_tests import base_loading
 
 
-def test_epitope_comparison_details() -> None:
+def test_eplet_comparison_details() -> None:
     ## False Positives
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Pos")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -41,7 +41,7 @@ def test_epitope_comparison_details() -> None:
     ## False Negatives
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -79,10 +79,10 @@ def test_epitope_comparison_details() -> None:
     os.remove(f"{output_path}.csv")
 
 
-def test_epitope_comparison_count() -> None:
+def test_eplet_comparison_count() -> None:
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -97,16 +97,16 @@ def test_epitope_comparison_count() -> None:
     for index_ in range(5, 2146):
         # We can include index_ = 5 because we're talking about False Negatives here (all the eplet mismatches are
         # compensated by B*35:01)
-        assert output_df.at[index_, "Epitopic Charge"] == 0
+        assert output_df.at[index_, "Eplet Load"] == 0
 
     os.remove(f"{output_path}.csv")
 
 
-def test_epitope_comparison_isolated_classes() -> None:
+def test_eplet_comparison_isolated_classes() -> None:
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
     ## Only class I
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -124,13 +124,13 @@ def test_epitope_comparison_isolated_classes() -> None:
             # All the others indices lead to an epitopic charge of 0 because there are NO class I mismatches except
             # a B*14:10 that has been predicted as a B*14:02. However, this does not lead to any False Negatives because
             # all eplets on B*14:10 are either present on B*14:02 or B*35:01 (the other HLA-B allele).
-            assert output_df_fn.at[index_, "Epitopic Charge"] == 0
+            assert output_df_fn.at[index_, "Eplet Load"] == 0
 
     os.remove(f"{output_path}.csv")
 
     # Only class II (False Positives)
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Pos")
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -146,7 +146,7 @@ def test_epitope_comparison_isolated_classes() -> None:
         # - We can include index_ = 4 because we didn't have an absurd allele (only on the False Negs sheet) this time
         # - We can include index_ = 5 because we're talking about False Negatives here (all the eplet mismatches are
         # compensated by B*35:01)
-        assert output_df_fp.at[index_, "Epitopic Charge"] == 0
+        assert output_df_fp.at[index_, "Eplet Load"] == 0
 
     list_mismatches_5: list[str] = output_df_fp.at[5, "EpMismatches"].split(", ")
     assert ("97W_ABC" not in list_mismatches_5)
@@ -157,11 +157,11 @@ def test_epitope_comparison_isolated_classes() -> None:
     os.remove(f"{output_path}.csv")
 
 
-def test_epitope_comparison_dr13() -> None:
+def test_eplet_comparison_dr13() -> None:
     ## False Positives
     donordf, recipientdf, output_path = base_loading("pytest_dr13.xlsx", "False Pos")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -181,7 +181,7 @@ def test_epitope_comparison_dr13() -> None:
     ## False Negatives
     donordf, recipientdf, output_path = base_loading("pytest_dr13.xlsx", "False Negs")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -201,7 +201,7 @@ def test_epitope_comparison_dr13() -> None:
     ## False Positives (AbV only)
     donordf, recipientdf, output_path = base_loading("pytest_dr13.xlsx", "False Pos")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -213,16 +213,16 @@ def test_epitope_comparison_dr13() -> None:
 
     output_df_fp_abv: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
-    assert (output_df_fp_abv.at[8, "EpMismatches"] == "")  # 86G is not AbV
+    assert (output_df_fp_abv.at[8, "EpMismatches"] == "None")  # 86G is not AbV
 
     os.remove(f"{output_path}.csv")
 
 
-def test_epitope_comparison_b35() -> None:
+def test_eplet_comparison_b35() -> None:
     ## False Positives (eplets on B*35:08 but not on B*35:02)
     donordf, recipientdf, output_path = base_loading("pytest_b35.xlsx", "False Pos")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -245,7 +245,7 @@ def test_epitope_comparison_b35() -> None:
     ## False Negatives (eplets on B*35:02 but not on B*35:08)
     donordf, recipientdf, output_path = base_loading("pytest_b35.xlsx", "False Negs")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
@@ -268,7 +268,7 @@ def test_epitope_comparison_b35() -> None:
 def test_interlocus2() -> None:
     donordf, recipientdf, output_path = base_loading("pytest.xlsx", "False Negs")
 
-    compute_epitopic_charge(
+    compute_epletic_load(
         donordf,
         recipientdf,
         output_path,

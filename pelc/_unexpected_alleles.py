@@ -2,6 +2,10 @@ import pandas as pd
 
 
 def read_available_alleles(df_ref: pd.DataFrame) -> list[str]:
+    """
+    :param df_ref: reference dataframe
+    :return: all known alleles in the reference dataframe (df_a, df_b, df_c, df_dr, df_dq, or df_dp)
+    """
     list_ref: list[str] = list(df_ref.index.values)
 
     return list_ref
