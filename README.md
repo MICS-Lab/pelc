@@ -17,6 +17,7 @@ To use `pelc`, run `pip install pelc` in your terminal.
 #### Usage
 
 **a. Comparing two alleles**
+
 Here is a minimal example of how to use `pelc` to compare two alleles:
 
 ```py
