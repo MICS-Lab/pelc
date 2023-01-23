@@ -16,10 +16,8 @@ To use `pelc`, run `pip install pelc` in your terminal.
 
 #### Usage
 
-**a. Comparing two alleles**
-
+##### a. Comparing two alleles
 Here is a minimal example of how to use `pelc` to compare two alleles:
-
 ```py
 from pelc.simple_comparison import simple_comparison
 
@@ -31,15 +29,12 @@ simple_comparison(
     interlocus2=True  # doesn't matter for class I alleles
 )
 ```
-
 In the `output.csv` file created in the current directory, you will find two rows: "In A\*68:02 but not in A\*68:01" and
 "In A\*68:01 but not in A\*68:02"
 
-**b. Batch mode**
-
+##### b. Batch mode
 Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pelc/raw/main/Template.xlsx)
 (click to download):
-
 ```py
 import pandas as pd
 
@@ -73,9 +68,14 @@ if __name__ == "__main__":
 ```
 
 #### Advanced usage:
+##### a. Not taking into account all loci (if they are not typed for example)
 If one wants to determine the eplet mismatches between a donor and a recipient but without taking into account
 a certain locus, one can use `A*`, `B*`, ..., `DPB1*` as the allele name for both recipients and donors on this locus
 and the eplet mismatch computation will only take into account the loci filled in.
+
+##### b. Not creating a file but generating a pandas.DataFrame
+If one wants to generate a `pandas.DataFrame` directly, the `output_path` argument of `simple_comparison` can be 
+set to `None`. The `pandas.DataFrame` will be returned by the function. Same goes for `compute_epletic_load`.
 
 
 #### Exit codes:
