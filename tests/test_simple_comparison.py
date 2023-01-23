@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import pytest
 
 from pelc.simple_comparison import simple_comparison
 
@@ -45,3 +46,27 @@ def test_simple_comparison_a68() -> None:
     # delete files
     os.remove("tests/pytest_a68_simple_comparison_no_abv.csv")
     os.remove("tests/pytest_a68_simple_comparison_abv.csv")
+
+
+def test_wrong_locus_simple_comparison() -> None:
+    # Check that the function raises a ValueError when the loci are different
+    with pytest.raises(ValueError):
+        simple_comparison(
+            "A*68:01",
+            "DQB1*03:02",
+            "tests/pytest_a68_simple_comparison_no_abv",
+            verifiedonly=False,
+            interlocus2=True
+        )
+
+
+def test_wrong_allele_simple_comparison() -> None:
+    # Check that the function raises a ValueError when one or several alleles are not in the correct format
+    with pytest.raises(ValueError):
+        simple_comparison(
+            "A68:01",
+            "DQB1*03:02",
+            "tests/pytest_a68_simple_comparison_no_abv",
+            verifiedonly=False,
+            interlocus2=True
+        )
