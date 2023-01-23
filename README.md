@@ -15,36 +15,59 @@ To use `pelc`, run `pip install pelc` in your terminal.
 
 
 #### Usage
+
+**a. Comparing two alleles**
+Here is a minimal example of how to use `pelc` to compare two alleles:
+
+```py
+from pelc.simple_comparison import simple_comparison
+
+simple_comparison(
+    "A*68:01",
+    "A*68:02",
+    "output",  # file will be saved as output.csv in the current directory
+    verifiedonly=False,  # if True, only verified eplets will be considered, otherwise all eplets will be considered
+    interlocus2=True  # doesn't matter for class I alleles
+)
+```
+
+In the `output.csv` file created in the current directory, you will find two rows: "In A\*68:02 but not in A\*68:01" and
+"In A\*68:01 but not in A\*68:02"
+
+**b. Batch mode**
+
 Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pelc/raw/main/Template.xlsx)
 (click to download):
 
 ```py
 import pandas as pd
 
-from pelc import eplet_comparison, eplet_comparison_aux, output_type
+from pelc import batch_eplet_comp, batch_eplet_comp_aux, output_type
 
 if __name__ == "__main__":
     input_path: str = "Template.xlsx"
 
     output_path: str = "MyOutput"
     input_df: pd.DataFrame = pd.read_excel(
-        input_path, sheet_name="My Sheet", index_col="Index"
+        input_path,
+        sheet_name="My Sheet",
+        index_col="Index"
     )
 
     donordf: pd.DataFrame
     recipientdf: pd.DataFrame
-    donordf, recipientdf = eplet_comparison_aux.split_dataframe(input_df)
+    donordf, recipientdf = batch_eplet_comp_aux.split_dataframe(input_df)
 
-    eplet_comparison.compute_epletic_load(
+    batch_eplet_comp.compute_epletic_load(
         donordf,
         recipientdf,
         output_path,
         output_type.OutputType.DETAILS_AND_COUNT,
-        class_i = True,  # Compute class I eplets comparison?
-        class_ii = True,  # Compute class II eplets comparison?
-        verifiedonly = False,  # How should the epletic charge be computed? Verified eplets only? Or all eplets?
-        exclude = None,  # list of indices to exclude
-        interlocus2 = True  # whether or not to take into account interlocus eplets for HLA of class II
+        class_i=True,  # Compute class I eplets comparison?
+        class_ii=True,  # Compute class II eplets comparison?
+        verifiedonly=False,  # How should the epletic charge be computed? Verified eplets only? Or all eplets?
+        exclude=None,  # list of indices to exclude
+        interlocus2=True  # whether or not to take into account interlocus eplets for HLA of class II
     )
 ```
 

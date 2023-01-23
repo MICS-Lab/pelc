@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from pelc.eplet_comparison import compute_epletic_load
+from pelc.batch_eplet_comp import compute_epletic_load
 from pelc.output_type import OutputType
 from tests.base_loading_for_tests import base_loading
 

@@ -1,14 +1,16 @@
 import os
 import pandas as pd
 
-from pelc.eplet_comparison_aux import split_dataframe
+from pelc.batch_eplet_comp_aux import split_dataframe
 
 
 def base_loading(file_name: str, sheet_name: str) -> tuple[pd.DataFrame, pd.DataFrame, str]:
     """
     :param file_name: with extension (.xlsx file)
     :param sheet_name: sheet_name of the excel file
-    :return: two pandas dataframes (cf. split_dataframe)
+
+    :return: two pandas dataframes (cf. split_dataframe) and the output path directory of the file without the extension
+             because pelc.compute_epletic_load corresponding argument should not have an extension
     """
     this_file_directory_path: str = os.path.dirname(os.path.realpath(__file__))
 

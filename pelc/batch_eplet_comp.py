@@ -8,7 +8,7 @@ from pelc._open_epregistry_databases import (
     _open_epregistry_database,
     open_ep_data,
 )
-from pelc.eplet_comparison_aux import (
+from pelc.batch_eplet_comp_aux import (
     _allele_df_to_eplets_df,
     _transform_eplet_load_detail
 )
@@ -33,8 +33,8 @@ def compute_epletic_load(
     interlocus2: bool = True
 ) -> None:
     """
-    :param input_df_donor: Input Donors Typing pandas.DataFrame
-    :param input_df_recipient: Input Recipients Typing pandas.DataFrame
+    :param input_df_donor: Input Donors Typing (pandas.DataFrame)
+    :param input_df_recipient: Input Recipients Typing (pandas.DataFrame)
     :param output_path: Output path without the extension
     :param output_type: What is gonna be in the output file
     :param class_i: Compute class I eplets comparison?
