@@ -4,7 +4,10 @@ import logging
 import os
 import pandas as pd
 
-from pelc._open_epregistry_databases import _open_epregistry_database
+from pelc._open_epregistry_databases import (
+    _open_epregistry_database,
+    open_ep_data,
+)
 from pelc.eplet_comparison_aux import (
     _allele_df_to_eplets_df,
     _transform_eplet_load_detail
@@ -89,7 +92,7 @@ def compute_epletic_load(
             df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", "C*", no_eplets=True)
 
 
-    df_data = pd.read_csv(f"{this_file_directory_path}/data/ep_data.csv", sep=";")
+    df_data = open_ep_data(this_file_directory_path)
 
     input_df_donor, removed_donors = delete_unexpected_alleles(
         input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp
