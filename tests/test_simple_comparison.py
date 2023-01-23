@@ -20,6 +20,7 @@ def test_simple_comparison_a68() -> None:
     pytest_a68_simple_comparison_no_abv.set_index("Unnamed: 0", inplace=True)
 
     assert (len(pytest_a68_simple_comparison_no_abv) == 2)
+
     assert ("12M" in pytest_a68_simple_comparison_no_abv.loc["In A*68:02 but not in A*68:01"]["EpMismatches"])
     assert ("97R" in pytest_a68_simple_comparison_no_abv.loc["In A*68:02 but not in A*68:01"]["EpMismatches"])
     assert ("114H" in pytest_a68_simple_comparison_no_abv.loc["In A*68:02 but not in A*68:01"]["EpMismatches"])
@@ -40,6 +41,7 @@ def test_simple_comparison_a68() -> None:
     pytest_a68_simple_comparison_abv.set_index("Unnamed: 0", inplace=True)
 
     assert (len(pytest_a68_simple_comparison_abv) == 2)
+
     assert (pytest_a68_simple_comparison_abv.loc["In A*68:01 but not in A*68:02"]["Eplet Load"] == 0)
     assert (pytest_a68_simple_comparison_abv.loc["In A*68:02 but not in A*68:01"]["Eplet Load"] == 0)
 
@@ -70,3 +72,23 @@ def test_wrong_allele_simple_comparison() -> None:
             verifiedonly=False,
             interlocus2=True
         )
+
+
+def test_returning_dataframe() -> None:
+    # Check that the function returns a dataframe
+    simple_comparaison_return = simple_comparison(
+        "A*68:01",
+        "A*68:02",
+        None,
+        verifiedonly=False,
+        interlocus2=True
+    )
+
+    assert (isinstance(simple_comparaison_return, pd.DataFrame))
+
+    assert (len(simple_comparaison_return) == 2)
+
+    assert ("12M" in simple_comparaison_return.loc["In A*68:02 but not in A*68:01"]["EpMismatches"])
+    assert ("97R" in simple_comparaison_return.loc["In A*68:02 but not in A*68:01"]["EpMismatches"])
+    assert ("114H" in simple_comparaison_return.loc["In A*68:02 but not in A*68:01"]["EpMismatches"])
+    assert ("116Y" in simple_comparaison_return.loc["In A*68:02 but not in A*68:01"]["EpMismatches"])

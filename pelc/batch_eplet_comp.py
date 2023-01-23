@@ -24,18 +24,18 @@ from pelc._unexpected_alleles import (
 def compute_epletic_load(
     input_df_donor: pd.DataFrame,
     input_df_recipient: pd.DataFrame,
-    output_path: str,
+    output_path: str | None,
     output_type: OutputType,
     class_i: bool = True,
     class_ii: bool = True,
     verifiedonly: bool = False,
     exclude: list[int | str] | None = None,
     interlocus2: bool = True
-) -> None:
+) -> None | pd.DataFrame | pd.Series | tuple[pd.DataFrame, pd.DataFrame]:
     """
     :param input_df_donor: Input Donors Typing (pandas.DataFrame)
     :param input_df_recipient: Input Recipients Typing (pandas.DataFrame)
-    :param output_path: Output path without the extension
+    :param output_path: Output path without the extension. If None, the output will be returned as a pandas.DataFrame.
     :param output_type: What is gonna be in the output file
     :param class_i: Compute class I eplets comparison?
     :param class_ii: Compute class II eplets comparison?
@@ -43,7 +43,8 @@ def compute_epletic_load(
     :param exclude: list of indices to exclude
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
 
-    :return: None
+    :return: None or pandas.DataFrame or pandas.Series or tuple[pandas.DataFrame, pandas.DataFrame] (if output_type is
+             OutputType.FILTERED_TYPINGS)
     """
     if not class_i and not class_ii:
         logging.error(
@@ -102,8 +103,11 @@ def compute_epletic_load(
     )
 
     if output_type == OutputType.FILTERED_OUT_TYPINGS:
-        removed_donors.to_csv(f"{output_path}_removed_donors.csv")
-        removed_recipients.to_csv(f"{output_path}_removed_recipients.csv")
+        if output_path is None:
+            return removed_donors, removed_recipients
+        else:
+            removed_donors.to_csv(f"{output_path}_removed_donors.csv")
+            removed_recipients.to_csv(f"{output_path}_removed_recipients.csv")
     else:
         input_df_donor, input_df_recipient = remove_unexpected_other_individual(input_df_donor, input_df_recipient)
 
@@ -135,12 +139,24 @@ def compute_epletic_load(
             eplet_load: pd.Series = eplet_load_detail.apply(len).rename("Eplet Load")
             if output_type == OutputType.DETAILS_AND_COUNT:
                 eplet_load_detail = _transform_eplet_load_detail(eplet_load_detail)
-                pd.concat(
+                eplet_load_and_detail = pd.concat(
                     [eplet_load, eplet_load_detail],
                     axis=1
-                ).to_csv(f"{output_path}.csv", quoting=csv.QUOTE_NONNUMERIC)
+                )
+                if output_path is None:
+                    return eplet_load_and_detail
+                else:
+                    eplet_load_and_detail.to_csv(f"{output_path}.csv", quoting=csv.QUOTE_NONNUMERIC)
             else:  # OutputType.COUNT
-                eplet_load.to_csv(f"{output_path}.csv")
+                if output_path is None:
+                    return eplet_load
+                else:
+                    eplet_load.to_csv(f"{output_path}.csv")
         elif output_type == OutputType.ONLY_DETAILS:
             eplet_load_detail = _transform_eplet_load_detail(eplet_load_detail)
-            eplet_load_detail.to_csv(f"{output_path}.csv", quoting=csv.QUOTE_NONNUMERIC)
+            if output_path is None:
+                return eplet_load_detail
+            else:
+                eplet_load_detail.to_csv(f"{output_path}.csv", quoting=csv.QUOTE_NONNUMERIC)
+
+    return None
