@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below.
           Lhotte, R., Clichet, V., Usureau, C. & Taupin, J. (2022). Python Eplet Load Calculator (PELC) package
-          (Version 0.4.2) [Computer software]. https://doi.org/10.5281/zenodo.7254809"
+          (Version 0.4.3) [Computer software]. https://doi.org/10.5281/zenodo.7254809"
 authors:
   - family-names: Lhotte
     given-names: Romain
@@ -16,7 +16,7 @@ authors:
     given-names: Jean-Luc
     orcid: https://orcid.org/0000-0002-5766-046X
 title: Python Eplet Load Calculator (PELC) package
-version: 0.4.2
+version: 0.4.3
 doi: doi.org/10.5281/zenodo.7254809
 link: https://github.com/MICS-Lab/pecc
 date-released: 2022-10-26
