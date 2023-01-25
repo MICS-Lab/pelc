@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 
 
@@ -46,6 +47,12 @@ def delete_unexpected_alleles(
 
     df_filtered = df[is_allowed]
     df_removed  = df[~is_allowed]
+
+    if len(df_removed) != 0:
+        logging.warning(
+            "Some alleles inputed by the user were not found in the EpRegistry database. "
+            "They will be removed."
+        )
 
     return df_filtered, df_removed
 
