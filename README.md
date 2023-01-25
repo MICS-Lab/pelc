@@ -166,8 +166,11 @@ If you use this software, please cite it as below.
 
 - APA:
 ```
-If you use this software, please cite it as below. Lhotte, R., Clichet, V., Usureau, C. & Taupin, J. (2022). 
-Python Eplet Load Calculator (PELC) package (Version 0.4.3) [Computer software]. https://doi.org/10.5281/zenodo.7254809
+If you use this software, please cite it as below. 
+
+Lhotte, R., Clichet, V., Usureau, C. & Taupin, J. (2022). 
+Python Eplet Load Calculator (PELC) package (Version 0.4.3) [Computer software].
+https://doi.org/10.5281/zenodo.7254809
 ```
 
 - BibTeX:
