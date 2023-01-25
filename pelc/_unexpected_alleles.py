@@ -50,7 +50,7 @@ def delete_unexpected_alleles(
 
     if len(df_removed) != 0:
         logging.warning(
-            "Some alleles inputed by the user were not found in the EpRegistry database. "
+            "Some alleles inputted by the user were not found in the EpRegistry database. "
             "They will be removed."
         )
 
