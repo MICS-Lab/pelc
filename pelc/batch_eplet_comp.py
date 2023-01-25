@@ -102,6 +102,14 @@ def compute_epletic_load(
         input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp
     )
 
+    if len(removed_donors) + len(removed_recipients) > 0:
+        logging.warning(
+            "Some alleles inputted by the user were not found in the EpRegistry database. "
+            "They will be removed. "
+            "To find out what typings were removed, please run compute_epletic_load with the outpu_type argument "
+            "set to OutputType.FILTERED_TYPINGS."
+        )
+
     if output_type == OutputType.FILTERED_OUT_TYPINGS:
         if output_path is None:
             return removed_donors, removed_recipients
