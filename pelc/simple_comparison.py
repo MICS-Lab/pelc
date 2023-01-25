@@ -13,6 +13,27 @@ def _is_valid_allele(allele: str) -> bool:
     return "*" in allele and ":" in allele
 
 
+def _same_locus(allele1: str, allele2: str) -> bool:
+    """
+    :param allele1: First allele to compare
+    :param allele2: Second allele to compare
+
+    :return: whether or not the alleles are of the same locus
+    """
+    prefix_allele1 = allele1.split("*")[0]
+    prefix_allele2 = allele2.split("*")[0]
+    if prefix_allele1 == prefix_allele2:
+        # A*01:01 and A*68:01 are of the same locus
+        return True
+    else:
+        if "DRB" in prefix_allele1 and "DRB" in prefix_allele2:
+            # DRB1*01:01 and DRB3*01:01 are of the same locus
+            return True
+        else:
+            # A*01:01 and B*07:02 are not of the same locus
+            return False
+
+
 def simple_comparison(
         allele1: str,
         allele2: str,
@@ -35,7 +56,7 @@ def simple_comparison(
         raise ValueError("The alleles are not valid")
     else:
         # Check if the alleles are of the same locus
-        if allele1.split("*")[0] != allele2.split("*")[0]:
+        if not _same_locus(allele1, allele2):
             raise ValueError("The alleles are not of the same locus")
         else:
             # Create a pandas DataFrame with the two alleles
