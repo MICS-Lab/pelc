@@ -106,7 +106,7 @@ def compute_epletic_load(
         logging.warning(
             "Some alleles inputted by the user were not found in the EpRegistry database. "
             "They will be removed. "
-            "To find out what typings were removed, please run compute_epletic_load with the outpu_type argument "
+            "To find out what typings were removed, please run compute_epletic_load with the output_type argument "
             "set to OutputType.FILTERED_TYPINGS."
         )
 
