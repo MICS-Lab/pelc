@@ -29,11 +29,18 @@ def test_eplet_comparison_details() -> None:
     # Not a mismatch (not in the prediction nor in the true typing)
     assert ("57S_DR" not in list_mismatches_2_fp)
     # This is a false negative (in DRB1*04:05 (true typing) but not in DRB1*04:04 (predicted typing))
+    # So it shouldn't appear in the False Positives
 
     list_mismatches_5_fp: list[str] = output_df_fp.at[5, "EpMismatches"].split(", ")
-    assert ("97W_ABC" in list_mismatches_5_fp)
+    assert (["97W_ABC"] == list_mismatches_5_fp)
     # Present on B*14:02 (predicted) but not on B*14:10 (true typing) and isn't compensated by loci HLA-A or HLA-C.
     # Therefore is a false positive.
+    # This is the only mismatch between A*03:02, A*33:01, B*14:02, B*35:01, C*04:01, C*08:02 (donor) and
+    # A*03:02, A*33:01, B*14:10, B*35:01, C*04:01, C*08:02 (recipient).
+
+    for index_ in range(6, 2146):
+        # Typings are identical
+        assert output_df_fp.at[index_, "EpMismatches"] == "None"
 
     os.remove(f"{output_path}.csv")
 
@@ -54,6 +61,7 @@ def test_eplet_comparison_details() -> None:
     output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
     for index_ in range(6, 2146):
+        # Typings are identical
         assert output_df_fn.at[index_, "EpMismatches"] == "None"
 
     list_mismatches_1: list[str] = output_df_fn.at[1, "EpMismatches"].split(", ")
@@ -70,7 +78,7 @@ def test_eplet_comparison_details() -> None:
     assert ("37FV_DR" not in list_mismatches_2_fn)
     # Not a mismatch (not in the prediction nor in the true typing)
     assert ("57S_DR" in list_mismatches_2_fn)
-    # This is a false negative
+    # This is a false negative (in DRB1*04:05 but not in DRB1*04:04)
 
     list_mismatches_5_fn: list[str] = output_df_fn.at[5, "EpMismatches"].split(", ")
     assert (list_mismatches_5_fn == ["None"])
@@ -142,17 +150,21 @@ def test_eplet_comparison_isolated_classes() -> None:
 
     output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
-    for index_ in range(4, 2146):
-        # - We can include index_ = 4 because we didn't have an absurd allele (only on the False Negs sheet) this time
-        # - We can include index_ = 5 because we're talking about False Negatives here (all the eplet mismatches are
-        # compensated by B*35:01)
-        assert output_df_fp.at[index_, "Eplet Load"] == 0
+    for index_ in range(1, 2146):
+        # - We can include index_ = 4 because we don't have an absurd allele this time (it's present only on the False
+        # Negs sheet)
+        # - We can include index_ = 5 because we're talking about class II only here
+        if index_ == 2:
+            assert output_df_fp.at[index_, "Eplet Load"] == 3  # 3 DQ mismatches (9F, 67VG, 70GT)
+        elif index_ == 3:
+            assert output_df_fp.at[index_, "Eplet Load"] == 9  # 6 DQ mismatches and 3 i2 mismatches
+        else:
+            assert output_df_fp.at[index_, "Eplet Load"] == 0
 
     list_mismatches_5: list[str] = output_df_fp.at[5, "EpMismatches"].split(", ")
     assert ("97W_ABC" not in list_mismatches_5)
     # Present on B*14:02 (predicted) but not on B*14:10 (true typing) and isn't compensated by loci HLA-A or HLA-C.
-    # Therefore is a false positive.
-    # But here we only care about class II so it should not appear
+    # Therefore is a false positive. But here we only care about class II so it should not appear
 
     os.remove(f"{output_path}.csv")
 

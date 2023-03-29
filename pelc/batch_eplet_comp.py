@@ -4,20 +4,20 @@ import logging
 import os
 import pandas as pd
 
+from pelc._input_sanity_check import _equal_amount_of_unknown_alleles
 from pelc._open_epregistry_databases import (
     _open_epregistry_database,
     open_ep_data,
+)
+from pelc._unexpected_alleles import (
+    _delete_unexpected_alleles,
+    _remove_unexpected_other_individual,
 )
 from pelc.batch_eplet_comp_aux import (
     _allele_df_to_eplets_df,
     _transform_eplet_load_detail
 )
-
 from pelc.output_type import OutputType
-from pelc._unexpected_alleles import (
-    _delete_unexpected_alleles,
-    _remove_unexpected_other_individual,
-)
 
 
 # MAIN
@@ -56,6 +56,20 @@ def compute_epletic_load(
         input_df_donor.drop(exclude, axis=0, inplace=True)
         input_df_recipient.drop(exclude, axis=0, inplace=True)
 
+    if len(input_df_donor) != len(input_df_recipient):
+        logging.error(
+            "The number of donors is different from the number of recipients."
+        )
+        return None
+
+    if not _equal_amount_of_unknown_alleles(input_df_donor, input_df_recipient):
+        logging.error(
+            "Either the number of unknown alleles is different for one donor and recipient pair or one allele is "
+            "uknown whilst the other of the same locus isn't."
+        )
+        return None
+
+
     df_a: pd.DataFrame
     df_b: pd.DataFrame
     df_c: pd.DataFrame
@@ -72,26 +86,38 @@ def compute_epletic_load(
         df_a = _open_epregistry_database(f"{this_file_directory_path}/data/A.csv", "A*")
         df_b = _open_epregistry_database(f"{this_file_directory_path}/data/B.csv", "B*")
         df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", "C*")
-        df_dr = _open_epregistry_database(f"{this_file_directory_path}/data/DR.csv", "DRB1*")
-        df_dq = _open_epregistry_database(f"{this_file_directory_path}/data/DQ.csv", "DQB1*")
-        df_dp = _open_epregistry_database(f"{this_file_directory_path}/data/DP.csv", "DPB1*")
+        df_dr = _open_epregistry_database(f"{this_file_directory_path}/data/DR.csv", ["DRB1*", "DRB345*"])
+        df_dq = _open_epregistry_database(f"{this_file_directory_path}/data/DQ.csv", ["DQB1*", "DQA1*"])
+        df_dp = _open_epregistry_database(f"{this_file_directory_path}/data/DP.csv", ["DPB1*", "DPA1*"])
     else:
         if class_i:
             df_a = _open_epregistry_database(f"{this_file_directory_path}/data/A.csv", "A*")
             df_b = _open_epregistry_database(f"{this_file_directory_path}/data/B.csv", "B*")
             df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", "C*")
             # we don't want to load .csv files if they are not needed
-            df_dr = _open_epregistry_database(f"{this_file_directory_path}/data/DR.csv", "DRB1*", no_eplets=True)
-            df_dq = _open_epregistry_database(f"{this_file_directory_path}/data/DQ.csv", "DQB1*", no_eplets=True)
-            df_dp = _open_epregistry_database(f"{this_file_directory_path}/data/DP.csv", "DPB1*", no_eplets=True)
+            df_dr = _open_epregistry_database(
+                f"{this_file_directory_path}/data/DR.csv", ["DRB1*", "DRB345*"], no_eplets=True
+            )
+            df_dq = _open_epregistry_database(
+                f"{this_file_directory_path}/data/DQ.csv", ["DQB1*", "DQA1*"], no_eplets=True
+            )
+            df_dp = _open_epregistry_database(
+                f"{this_file_directory_path}/data/DP.csv", ["DPB1*", "DPA1*"], no_eplets=True
+            )
         else:
-            df_dr = _open_epregistry_database(f"{this_file_directory_path}/data/DR.csv", "DRB1*")
-            df_dq = _open_epregistry_database(f"{this_file_directory_path}/data/DQ.csv", "DQB1*")
-            df_dp = _open_epregistry_database(f"{this_file_directory_path}/data/DP.csv", "DPB1*")
+            df_dr = _open_epregistry_database(f"{this_file_directory_path}/data/DR.csv", ["DRB1*", "DRB345*"])
+            df_dq = _open_epregistry_database(f"{this_file_directory_path}/data/DQ.csv", ["DQB1*", "DQA1*"])
+            df_dp = _open_epregistry_database(f"{this_file_directory_path}/data/DP.csv", ["DPB1*", "DPA1*"])
             # we don't want to load .csv files if they are not needed
-            df_a = _open_epregistry_database(f"{this_file_directory_path}/data/A.csv", "A*", no_eplets=True)
-            df_b = _open_epregistry_database(f"{this_file_directory_path}/data/B.csv", "B*", no_eplets=True)
-            df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", "C*", no_eplets=True)
+            df_a = _open_epregistry_database(
+                f"{this_file_directory_path}/data/A.csv", "A*", no_eplets=True
+            )
+            df_b = _open_epregistry_database(
+                f"{this_file_directory_path}/data/B.csv", "B*", no_eplets=True
+            )
+            df_c = _open_epregistry_database(
+                f"{this_file_directory_path}/data/C.csv", "C*", no_eplets=True
+            )
 
 
     df_data = open_ep_data(this_file_directory_path)

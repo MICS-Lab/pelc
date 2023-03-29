@@ -66,6 +66,9 @@ if __name__ == "__main__":
         interlocus2=True  # whether or not to take into account interlocus eplets for HLA of class II
     )
 ```
+Note that if a typing is unknown, one can use `A*`, `B*`, ..., `DPB1*` as the allele name for **both** recipients and
+donors. If the allele is unknown for only of the two individuals, it is necessary to use `A*`, `B*`, ..., `DPB1*` for
+both individuals otherwise the eplet mismatch computation will not be performed for this donor / recipient pair.
 
 #### Advanced usage:
 ##### a. Not taking into account all loci (if they are not typed for example)
@@ -86,7 +89,7 @@ expression '^.[pqr]*(\d+)' (interlocus2) either.
 
 
 #### Unit tests
-Tested on `Python 3.10.2` & `Python 3.11.0`.
+Tested on `Python 3.10.2` & `Python 3.11.1`.
 ```
 platform win32 -- Python 3.10.2, pytest-7.2.0, pluggy-1.0.0
 plugins: anyio-3.6.2, mypy-0.10.3
