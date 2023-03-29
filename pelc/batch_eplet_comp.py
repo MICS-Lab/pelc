@@ -15,8 +15,8 @@ from pelc.batch_eplet_comp_aux import (
 
 from pelc.output_type import OutputType
 from pelc._unexpected_alleles import (
-    delete_unexpected_alleles,
-    remove_unexpected_other_individual,
+    _delete_unexpected_alleles,
+    _remove_unexpected_other_individual,
 )
 
 
@@ -43,8 +43,9 @@ def compute_epletic_load(
     :param exclude: list of indices to exclude
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
 
-    :return: None or pandas.DataFrame or pandas.Series or tuple[pandas.DataFrame, pandas.DataFrame] (if output_type is
-             OutputType.FILTERED_TYPINGS)
+    :return: None (if output_type is not None, the result will be saved on disk as a csv), or pandas.DataFrame
+             (OutputType.COUNT_AND_DETAILS) or pandas.Series (OutputType.COUNT, or OutputType.ONLY_DETAILS) or
+             tuple[pandas.DataFrame, pandas.DataFrame] (OutputType.FILTERED_TYPINGS)
     """
     if not class_i and not class_ii:
         logging.error(
@@ -95,10 +96,10 @@ def compute_epletic_load(
 
     df_data = open_ep_data(this_file_directory_path)
 
-    input_df_donor, removed_donors = delete_unexpected_alleles(
+    input_df_donor, removed_donors = _delete_unexpected_alleles(
         input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp
     )
-    input_df_recipient, removed_recipients = delete_unexpected_alleles(
+    input_df_recipient, removed_recipients = _delete_unexpected_alleles(
         input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp
     )
 
@@ -117,7 +118,7 @@ def compute_epletic_load(
             removed_donors.to_csv(f"{output_path}_removed_donors.csv")
             removed_recipients.to_csv(f"{output_path}_removed_recipients.csv")
     else:
-        input_df_donor, input_df_recipient = remove_unexpected_other_individual(input_df_donor, input_df_recipient)
+        input_df_donor, input_df_recipient = _remove_unexpected_other_individual(input_df_donor, input_df_recipient)
 
         donors_eplets_per_allele: pd.DataFrame = _allele_df_to_eplets_df(
             input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp, df_data, interlocus2, verifiedonly
@@ -131,8 +132,8 @@ def compute_epletic_load(
         recipient_all_eplets: pd.Series = recipients_eplets_per_allele.sum(axis=1).rename("Recipients' eplets")
 
         # Eliminate eplet doublons
-        donor_all_eplets = donor_all_eplets.apply(set)
-        recipient_all_eplets = recipient_all_eplets.apply(set)
+        donor_all_eplets = donor_all_eplets.apply(lambda x: set(x))
+        recipient_all_eplets = recipient_all_eplets.apply(lambda x: set(x))
 
         # Return eplets that are present on the donor's HLA molecules but not on the recipient's ones
         both_all_eplets: pd.DataFrame = pd.concat(

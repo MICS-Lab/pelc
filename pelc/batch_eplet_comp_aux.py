@@ -15,7 +15,7 @@ def split_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return df.filter(regex='_D').copy(), df.filter(regex='_R').copy()
 
 
-def is_eplet_to_be_added(
+def _is_eplet_to_be_added(
         eplet: str,
         suffix: str,
         df_data: pd.DataFrame,
@@ -73,7 +73,7 @@ def _convert_to_eplets(
     eplet_list: list[str] = []
     for eplet in df_ref.loc[allele].values:
         if not pd.isnull(eplet):
-            if is_eplet_to_be_added(eplet, suffix, df_data, verifiedonly):
+            if _is_eplet_to_be_added(eplet, suffix, df_data, verifiedonly):
                 if eplet[0] in ["r", "q", "p"]:
                     if interlocus2:
                         eplet_list.append(eplet)

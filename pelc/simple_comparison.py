@@ -80,7 +80,7 @@ def simple_comparison(
             )
 
             # Compute the epletic load
-            return compute_epletic_load(
+            return compute_epletic_load(  # type: ignore # we know that the output is a pandas.DataFrame or None
                 input_df_donor,
                 input_df_recipient,
                 output_path,

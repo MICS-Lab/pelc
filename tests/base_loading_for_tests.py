@@ -20,7 +20,7 @@ def base_loading(file_name: str, sheet_name: str) -> tuple[pd.DataFrame, pd.Data
     # no extension because pelc.compute_epletic_load corresponding argument should not have an extension
 
     input_df: pd.DataFrame = pd.read_excel(
-        input_path, sheet_name=sheet_name, skiprows=[0], index_col="Index"
+        input_path, sheet_name=sheet_name, skiprows=[0], index_col=0
     )
 
     donordf: pd.DataFrame

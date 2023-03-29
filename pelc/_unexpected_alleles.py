@@ -2,7 +2,7 @@ import logging
 import pandas as pd
 
 
-def read_available_alleles(df_ref: pd.DataFrame) -> list[str]:
+def _read_available_alleles(df_ref: pd.DataFrame) -> list[str]:
     """
     :param df_ref: reference dataframe
     :return: all known alleles in the reference dataframe (df_a, df_b, df_c, df_dr, df_dq, or df_dp)
@@ -12,14 +12,14 @@ def read_available_alleles(df_ref: pd.DataFrame) -> list[str]:
     return list_ref
 
 
-def delete_unexpected_alleles(
+def _delete_unexpected_alleles(
     df: pd.DataFrame,
-    df_a: pd.DataFrame | None,
-    df_b: pd.DataFrame | None,
-    df_c: pd.DataFrame | None,
-    df_dr: pd.DataFrame | None,
-    df_dq: pd.DataFrame | None,
-    df_dp: pd.DataFrame | None,
+    df_a: pd.DataFrame,
+    df_b: pd.DataFrame,
+    df_c: pd.DataFrame,
+    df_dr: pd.DataFrame,
+    df_dq: pd.DataFrame,
+    df_dp: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     :param df: is the input dataframe of the donor or the recipient
@@ -32,12 +32,12 @@ def delete_unexpected_alleles(
 
     :return: df without the lines with unexpected alleles, df with only the lines with unexpected alleles
     """
-    list_ref_a: list[str]  = read_available_alleles(df_a)
-    list_ref_b: list[str]  = read_available_alleles(df_b)
-    list_ref_c: list[str]  = read_available_alleles(df_c)
-    list_ref_dr: list[str] = read_available_alleles(df_dr)
-    list_ref_dq: list[str] = read_available_alleles(df_dq)
-    list_ref_dp: list[str] = read_available_alleles(df_dp)
+    list_ref_a: list[str]  = _read_available_alleles(df_a)
+    list_ref_b: list[str]  = _read_available_alleles(df_b)
+    list_ref_c: list[str]  = _read_available_alleles(df_c)
+    list_ref_dr: list[str] = _read_available_alleles(df_dr)
+    list_ref_dq: list[str] = _read_available_alleles(df_dq)
+    list_ref_dp: list[str] = _read_available_alleles(df_dp)
 
     list_ref: set[str] = set(
         list_ref_a + list_ref_b + list_ref_c + list_ref_dr + list_ref_dq + list_ref_dp
@@ -51,7 +51,7 @@ def delete_unexpected_alleles(
     return df_filtered, df_removed
 
 
-def remove_unexpected_other_individual(
+def _remove_unexpected_other_individual(
     input_df_donor: pd.DataFrame,
     input_df_recipient: pd.DataFrame
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
