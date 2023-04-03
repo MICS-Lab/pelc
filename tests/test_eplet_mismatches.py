@@ -305,3 +305,48 @@ def test_interlocus2() -> None:
     # But we don't want interlocus2 (argument interlocus2 = False).
 
     os.remove(f"{output_path}.csv")
+
+
+def test_dqa() -> None:
+    donordf, recipientdf, output_path = base_loading("pytest_160s.xlsx", "Sheet 1")
+
+    for class_1 in False, True:
+        compute_epletic_load(
+            donordf,
+            recipientdf,
+            output_path,
+            OutputType.DETAILS_AND_COUNT,
+            class_1,  # class_i
+            True,  # class_ii
+            False,  # abv_only
+        )
+
+        output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+        assert output_df.at[8, "EpMismatches"] == "160S_DQ"
+        assert output_df.at[8, "Eplet Load"] == 1
+
+        os.remove(f"{output_path}.csv")
+
+
+def test_dpa() -> None:
+    donordf, recipientdf, output_path = base_loading("pytest_dpa.xlsx", "Sheet 1")
+
+    for class_1 in False, True:
+        compute_epletic_load(
+            donordf,
+            recipientdf,
+            output_path,
+            OutputType.DETAILS_AND_COUNT,
+            class_1,  # class_i
+            True,  # class_ii
+            False,  # abv_only
+        )
+
+        output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+        assert output_df.at[8, "EpMismatches"] == "11A_DP"
+        # 11A is in DPA1*01:03 (donor typing) but not in DPA1*03:01 (recipient typing)
+        assert output_df.at[8, "Eplet Load"] == 1
+
+        os.remove(f"{output_path}.csv")
