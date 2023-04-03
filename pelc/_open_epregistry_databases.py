@@ -4,7 +4,7 @@ import pandas as pd
 
 def _open_epregistry_database(
         path_to_csv: str,
-        ghost_alleles: str | list[str],
+        ghost_alleles: list[str],
         no_eplets: bool = False
 ) -> pd.DataFrame:
     """
@@ -17,7 +17,7 @@ def _open_epregistry_database(
     df_db: pd.DataFrame
 
     file_name_no_extension: str = path_to_csv.split('.csv')[0]
-    suffix: str = ghost_alleles if isinstance(ghost_alleles, str) else ghost_alleles[0]
+    suffix: str = ghost_alleles[0]
     pickle_file_name: str = f"{file_name_no_extension}_{no_eplets}_{suffix}.pickle"
 
     # replace * by _ in the pickle file name to avoid problems when * is in the file name

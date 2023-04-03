@@ -30,7 +30,8 @@ def compute_epletic_load(
     class_ii: bool = True,
     verifiedonly: bool = False,
     exclude: list[int | str] | None = None,
-    interlocus2: bool = True
+    interlocus2: bool = True,
+    simple_comparison: bool = False,
 ) -> None | pd.DataFrame | pd.Series | tuple[pd.DataFrame, pd.DataFrame]:
     """
     :param input_df_donor: Input Donors Typing (pandas.DataFrame)
@@ -42,6 +43,9 @@ def compute_epletic_load(
     :param verifiedonly: How should the epletic charge be computed? Verified eplets only? Or all eplets?
     :param exclude: list of indices to exclude
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
+    :param simple_comparison: whether or not it's a simple allele to allele comparison in which case, the function
+    _equal_amount_of_unknown_alleles is not called (checks are already made in simple_comparison.py and would not
+    pass here given the column names).
 
     :return: None (if output_type is not None, the result will be saved on disk as a csv), or pandas.DataFrame
              (OutputType.COUNT_AND_DETAILS) or pandas.Series (OutputType.COUNT, or OutputType.ONLY_DETAILS) or
@@ -62,12 +66,15 @@ def compute_epletic_load(
         )
         return None
 
-    if not _equal_amount_of_unknown_alleles(input_df_donor, input_df_recipient):
-        logging.error(
-            "Either the number of unknown alleles is different for one donor and recipient pair or one allele is "
-            "uknown whilst the other of the same locus isn't."
-        )
-        return None
+    if not simple_comparison:
+        if not _equal_amount_of_unknown_alleles(input_df_donor, input_df_recipient):
+            # unknown alleles are the ones that were inputted as "A*", "B*", "C*", "DRB1*", "DRB345*", "DQA1*", "DQB1*",
+            # "DPA1*" and/or "DPB1*". Here we are not talking about the alleles that are unknown to the database.
+            logging.error(
+                "Either the number of unknown alleles is different for one donor and recipient pair or one allele is "
+                "uknown whilst the other of the same locus isn't."
+            )
+            return None
 
 
     df_a: pd.DataFrame
@@ -83,17 +90,17 @@ def compute_epletic_load(
 
     this_file_directory_path: str = os.path.dirname(os.path.realpath(__file__))
     if class_i and class_ii:
-        df_a = _open_epregistry_database(f"{this_file_directory_path}/data/A.csv", "A*")
-        df_b = _open_epregistry_database(f"{this_file_directory_path}/data/B.csv", "B*")
-        df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", "C*")
+        df_a = _open_epregistry_database(f"{this_file_directory_path}/data/A.csv", ["A*"])
+        df_b = _open_epregistry_database(f"{this_file_directory_path}/data/B.csv", ["B*"])
+        df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", ["C*"])
         df_dr = _open_epregistry_database(f"{this_file_directory_path}/data/DR.csv", ["DRB1*", "DRB345*"])
         df_dq = _open_epregistry_database(f"{this_file_directory_path}/data/DQ.csv", ["DQB1*", "DQA1*"])
         df_dp = _open_epregistry_database(f"{this_file_directory_path}/data/DP.csv", ["DPB1*", "DPA1*"])
     else:
         if class_i:
-            df_a = _open_epregistry_database(f"{this_file_directory_path}/data/A.csv", "A*")
-            df_b = _open_epregistry_database(f"{this_file_directory_path}/data/B.csv", "B*")
-            df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", "C*")
+            df_a = _open_epregistry_database(f"{this_file_directory_path}/data/A.csv", ["A*"])
+            df_b = _open_epregistry_database(f"{this_file_directory_path}/data/B.csv", ["B*"])
+            df_c = _open_epregistry_database(f"{this_file_directory_path}/data/C.csv", ["C*"])
             # we don't want to load .csv files if they are not needed
             df_dr = _open_epregistry_database(
                 f"{this_file_directory_path}/data/DR.csv", ["DRB1*", "DRB345*"], no_eplets=True
@@ -110,13 +117,13 @@ def compute_epletic_load(
             df_dp = _open_epregistry_database(f"{this_file_directory_path}/data/DP.csv", ["DPB1*", "DPA1*"])
             # we don't want to load .csv files if they are not needed
             df_a = _open_epregistry_database(
-                f"{this_file_directory_path}/data/A.csv", "A*", no_eplets=True
+                f"{this_file_directory_path}/data/A.csv", ["A*"], no_eplets=True
             )
             df_b = _open_epregistry_database(
-                f"{this_file_directory_path}/data/B.csv", "B*", no_eplets=True
+                f"{this_file_directory_path}/data/B.csv", ["B*"], no_eplets=True
             )
             df_c = _open_epregistry_database(
-                f"{this_file_directory_path}/data/C.csv", "C*", no_eplets=True
+                f"{this_file_directory_path}/data/C.csv", ["C*"], no_eplets=True
             )
 
 

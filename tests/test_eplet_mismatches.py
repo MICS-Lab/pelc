@@ -239,9 +239,9 @@ def test_eplet_comparison_b35() -> None:
         recipientdf,
         output_path,
         OutputType.ONLY_DETAILS,
-        True,
-        False,
-        False,
+        True,  # class_i
+        False,  # class_ii
+        False,  # abv_only
     )
 
     output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")

@@ -29,8 +29,8 @@ simple_comparison(
     interlocus2=True  # doesn't matter for class I alleles
 )
 ```
-In the `output.csv` file created in the current directory, you will find two rows: "In A\*68:02 but not in A\*68:01" and
-"In A&ast;68:01 but not in A&ast;68:02"
+In the `output.csv` file created in the current directory, you will find two rows: "In A&ast;68:02 but not in 
+A&ast;68:01" and "In A&ast;68:01 but not in A&ast;68:02".
 
 ##### b. Batch mode
 Here is a minimal example with the file [Template.xlsx](https://github.com/MICS-Lab/pelc/raw/main/Template.xlsx)

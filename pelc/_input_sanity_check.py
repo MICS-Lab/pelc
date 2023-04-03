@@ -8,9 +8,11 @@ def _equal_amount_of_unknown_alleles(
     :param input_df_donor: Input pandas.DataFrame with the donor alleles
     :param input_df_recipient: Input pandas.DataFrame with the recipient alleles
 
-    :return: True if the amount of unknown alleles is equal in both dataframes, False otherwise
+    :return: True if the amount of unknown* alleles is equal in both dataframes, False otherwise
 
-    Also tests if the unknown alleles are either for both the alleles of the locus or for none of them
+    Also tests if the unknown* alleles are either for both the alleles of the locus or for none of them.
+    * unknown alleles are the ones that were inputted as "A*", "B*", "C*", "DRB1*", "DQA1*", "DQB1*", "DPA1*" and/or
+    "DPB1*". Here we are not talking about the alleles that are unknown to the database.
     """
 
     unknown_alleles: list[str] = [

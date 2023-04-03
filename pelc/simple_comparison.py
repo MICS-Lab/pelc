@@ -86,5 +86,6 @@ def simple_comparison(
                 output_path,
                 OutputType.DETAILS_AND_COUNT,
                 verifiedonly=verifiedonly,
-                interlocus2=interlocus2
+                interlocus2=interlocus2,
+                simple_comparison=True
             )
