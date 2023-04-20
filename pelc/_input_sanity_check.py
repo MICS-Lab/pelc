@@ -39,7 +39,9 @@ def _equal_amount_of_unknown_alleles(
             locus_recipient_1: str = f"{locus}1_R"
             locus_recipient_2: str = f"{locus}2_R"
 
-            if allele in [row_d[locus_donor_1], row_d[locus_donor_2]]:
+            if allele in [row_r[locus_recipient_1], row_d[locus_donor_1]]:
+                # If the (first, otherwise it can be an homozygote) allele is unknown, then the other one must be
+                # unknown too and the same for the other individual
                 if not (
                     allele
                     ==
