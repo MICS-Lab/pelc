@@ -93,58 +93,61 @@ Tested on `Python 3.10.2` & `Python 3.11.1`.
 ```
 platform win32 -- Python 3.10.2, pytest-7.2.0, pluggy-1.0.0
 plugins: anyio-3.6.2, mypy-0.10.3
-collected 34 items
+collected 37 items
 
 unit_tests_mypy.py ..                                                    [  5%]
 unit_tests_simple.py .                                                   [  8%]
-pelc\__init__.py .                                                       [ 11%]
-pelc\_open_epregistry_databases.py .                                     [ 14%]
-pelc\_unexpected_alleles.py .                                            [ 17%]
-pelc\batch_eplet_comp.py .                                               [ 20%]
-pelc\batch_eplet_comp_aux.py .                                           [ 23%]
-pelc\output_type.py .                                                    [ 26%]
+pelc\__init__.py .                                                       [ 10%]
+pelc\_input_sanity_check.py .                                            [ 13%]
+pelc\_open_epregistry_databases.py .                                     [ 16%]
+pelc\_unexpected_alleles.py .                                            [ 18%]
+pelc\batch_eplet_comp.py .                                               [ 21%]
+pelc\batch_eplet_comp_aux.py .                                           [ 24%]
+pelc\output_type.py .                                                    [ 27%]
 pelc\simple_comparison.py .                                              [ 29%]
 tests\__init__.py .                                                      [ 32%]
 tests\base_loading_for_tests.py .                                        [ 35%]
-tests\test_eplet_mismatches.py .......                                   [ 55%]
-tests\test_extract_key_to_rank_epletes.py ..                             [ 61%]
-tests\test_is_valid_allele.py ..                                         [ 67%]
-tests\test_pelc.py ..                                                    [ 73%]
-tests\test_same_locus.py ..                                              [ 79%]
+tests\test_eplet_mismatches.py .........                                 [ 59%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 64%]
+tests\test_is_valid_allele.py ..                                         [ 70%]
+tests\test_pelc.py ..                                                    [ 75%]
+tests\test_same_locus.py ..                                              [ 81%]
 tests\test_simple_comparison.py .....                                    [ 94%]
 tests\test_unexpected_alleles.py ..                                      [100%]
  =================================== mypy =====================================
 
-Success: no issues found in 18 source files
- ============================= 34 passed in 16.23s ============================
+Success: no issues found in 19 source files
+ ============================= 37 passed in 16.23s ============================
 ```
+
 ```
 platform win32 -- Python 3.11.1, pytest-7.2.0, pluggy-1.0.0
 plugins: anyio-3.6.2, mypy-0.10.3
-collected 34 items
+collected 37 items
 
 unit_tests_mypy.py ..                                                    [  5%]
 unit_tests_simple.py .                                                   [  8%]
-pelc\__init__.py .                                                       [ 11%]
-pelc\_open_epregistry_databases.py .                                     [ 14%]
-pelc\_unexpected_alleles.py .                                            [ 17%]
-pelc\batch_eplet_comp.py .                                               [ 20%]
-pelc\batch_eplet_comp_aux.py .                                           [ 23%]
-pelc\output_type.py .                                                    [ 26%]
+pelc\__init__.py .                                                       [ 10%]
+pelc\_input_sanity_check.py .                                            [ 13%]
+pelc\_open_epregistry_databases.py .                                     [ 16%]
+pelc\_unexpected_alleles.py .                                            [ 18%]
+pelc\batch_eplet_comp.py .                                               [ 21%]
+pelc\batch_eplet_comp_aux.py .                                           [ 24%]
+pelc\output_type.py .                                                    [ 27%]
 pelc\simple_comparison.py .                                              [ 29%]
 tests\__init__.py .                                                      [ 32%]
 tests\base_loading_for_tests.py .                                        [ 35%]
-tests\test_eplet_mismatches.py .......                                   [ 55%]
-tests\test_extract_key_to_rank_epletes.py ..                             [ 61%]
-tests\test_is_valid_allele.py ..                                         [ 67%]
-tests\test_pelc.py ..                                                    [ 73%]
-tests\test_same_locus.py ..                                              [ 79%]
+tests\test_eplet_mismatches.py .........                                 [ 59%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 64%]
+tests\test_is_valid_allele.py ..                                         [ 70%]
+tests\test_pelc.py ..                                                    [ 75%]
+tests\test_same_locus.py ..                                              [ 81%]
 tests\test_simple_comparison.py .....                                    [ 94%]
 tests\test_unexpected_alleles.py ..                                      [100%]
  =================================== mypy =====================================
 
-Success: no issues found in 18 source files
- ============================= 34 passed in 14.95s ============================
+Success: no issues found in 19 source files
+ ============================= 37 passed in 14.95s ============================
 ```
 
 
