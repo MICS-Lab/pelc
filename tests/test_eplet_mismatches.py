@@ -20,7 +20,7 @@ def test_eplet_comparison_details() -> None:
         False,
     )
 
-    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index", na_filter=False)
 
     assert output_df_fp.at[1, "EpMismatches"] == "None"
 
@@ -58,7 +58,7 @@ def test_eplet_comparison_details() -> None:
         False,
     )
 
-    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index", na_filter=False)
 
     for index_ in range(6, 2146):
         # Typings are identical
@@ -124,7 +124,7 @@ def test_eplet_comparison_isolated_classes() -> None:
         False,
     )
 
-    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index", na_filter=False)
 
     for index_ in range(1, 2146):
         if index_ != 4:
@@ -148,7 +148,7 @@ def test_eplet_comparison_isolated_classes() -> None:
         False,
     )
 
-    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index", na_filter=False)
 
     for index_ in range(1, 2146):
         # - We can include index_ = 4 because we don't have an absurd allele this time (it's present only on the False
@@ -223,7 +223,7 @@ def test_eplet_comparison_dr13() -> None:
         True,  # AbV only
     )
 
-    output_df_fp_abv: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fp_abv: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index", na_filter=False)
 
     assert (output_df_fp_abv.at[8, "EpMismatches"] == "None")  # 86G is not AbV
 
@@ -292,7 +292,7 @@ def test_interlocus2() -> None:
         interlocus2=False
     )
 
-    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index", na_filter=False)
 
     for index_ in range(6, 2146):
         assert output_df_fn.at[index_, "EpMismatches"] == "None"
