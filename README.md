@@ -89,65 +89,67 @@ expression '^.[pqr]*(\d+)' (interlocus2) either.
 
 
 #### Unit tests
-Tested on `Python 3.10.2` & `Python 3.11.1`.
+Tested on `Python 3.10.6` & `Python 3.11.1`.
 ```
-platform win32 -- Python 3.10.2, pytest-7.2.0, pluggy-1.0.0
-plugins: anyio-3.6.2, mypy-0.10.3
-collected 37 items
+platform win32 -- Python 3.10.6, pytest-7.4.0, pluggy-1.2.0
+plugins: mypy-0.10.3
+collected 39 items
 
 unit_tests_mypy.py ..                                                    [  5%]
-unit_tests_simple.py .                                                   [  8%]
+unit_tests_simple.py .                                                   [  7%]
 pelc\__init__.py .                                                       [ 10%]
-pelc\_input_sanity_check.py .                                            [ 13%]
-pelc\_open_epregistry_databases.py .                                     [ 16%]
-pelc\_unexpected_alleles.py .                                            [ 18%]
-pelc\batch_eplet_comp.py .                                               [ 21%]
-pelc\batch_eplet_comp_aux.py .                                           [ 24%]
-pelc\output_type.py .                                                    [ 27%]
-pelc\simple_comparison.py .                                              [ 29%]
-tests\__init__.py .                                                      [ 32%]
-tests\base_loading_for_tests.py .                                        [ 35%]
-tests\test_eplet_mismatches.py .........                                 [ 59%]
-tests\test_extract_key_to_rank_epletes.py ..                             [ 64%]
-tests\test_is_valid_allele.py ..                                         [ 70%]
-tests\test_pelc.py ..                                                    [ 75%]
-tests\test_same_locus.py ..                                              [ 81%]
+pelc\_input_sanity_check.py .                                            [ 12%]
+pelc\_open_epregistry_databases.py .                                     [ 15%]
+pelc\_unexpected_alleles.py .                                            [ 17%]
+pelc\batch_eplet_comp.py .                                               [ 20%]
+pelc\batch_eplet_comp_aux.py .                                           [ 23%]
+pelc\output_type.py .                                                    [ 25%]
+pelc\simple_comparison.py .                                              [ 28%]
+tests\__init__.py .                                                      [ 30%]
+tests\base_loading_for_tests.py .                                        [ 33%]
+tests\test_eplet_mismatches.py .........                                 [ 56%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 61%]
+tests\test_is_valid_allele.py ..                                         [ 66%]
+tests\test_only_one_chromosome.py ..                                     [ 71%]
+tests\test_pelc.py ..                                                    [ 76%]
+tests\test_same_locus.py ..                                              [ 82%]
 tests\test_simple_comparison.py .....                                    [ 94%]
 tests\test_unexpected_alleles.py ..                                      [100%]
- =================================== mypy =====================================
+==================================== mypy =====================================
 
-Success: no issues found in 19 source files
- ============================= 37 passed in 16.23s ============================
+Success: no issues found in 20 source files
+============================= 39 passed in 34.42s =============================
 ```
 
 ```
-platform win32 -- Python 3.11.1, pytest-7.2.0, pluggy-1.0.0
+platform win32 -- Python 3.11.1, pytest-7.2.2, pluggy-1.0.0
 plugins: anyio-3.6.2, mypy-0.10.3
-collected 37 items
+collected 39 items
 
 unit_tests_mypy.py ..                                                    [  5%]
-unit_tests_simple.py .                                                   [  8%]
+unit_tests_simple.py .                                                   [  7%]
 pelc\__init__.py .                                                       [ 10%]
-pelc\_input_sanity_check.py .                                            [ 13%]
-pelc\_open_epregistry_databases.py .                                     [ 16%]
-pelc\_unexpected_alleles.py .                                            [ 18%]
-pelc\batch_eplet_comp.py .                                               [ 21%]
-pelc\batch_eplet_comp_aux.py .                                           [ 24%]
-pelc\output_type.py .                                                    [ 27%]
-pelc\simple_comparison.py .                                              [ 29%]
-tests\__init__.py .                                                      [ 32%]
-tests\base_loading_for_tests.py .                                        [ 35%]
-tests\test_eplet_mismatches.py .........                                 [ 59%]
-tests\test_extract_key_to_rank_epletes.py ..                             [ 64%]
-tests\test_is_valid_allele.py ..                                         [ 70%]
-tests\test_pelc.py ..                                                    [ 75%]
-tests\test_same_locus.py ..                                              [ 81%]
+pelc\_input_sanity_check.py .                                            [ 12%]
+pelc\_open_epregistry_databases.py .                                     [ 15%]
+pelc\_unexpected_alleles.py .                                            [ 17%]
+pelc\batch_eplet_comp.py .                                               [ 20%]
+pelc\batch_eplet_comp_aux.py .                                           [ 23%]
+pelc\output_type.py .                                                    [ 25%]
+pelc\simple_comparison.py .                                              [ 28%]
+tests\__init__.py .                                                      [ 30%]
+tests\base_loading_for_tests.py .                                        [ 33%]
+tests\test_eplet_mismatches.py .........                                 [ 56%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 61%]
+tests\test_is_valid_allele.py ..                                         [ 66%]
+tests\test_only_one_chromosome.py ..                                     [ 71%]
+tests\test_pelc.py ..                                                    [ 76%]
+tests\test_same_locus.py ..                                              [ 82%]
 tests\test_simple_comparison.py .....                                    [ 94%]
 tests\test_unexpected_alleles.py ..                                      [100%]
- =================================== mypy =====================================
+==================================== mypy =====================================
 
-Success: no issues found in 19 source files
- ============================= 37 passed in 14.95s ============================
+Success: no issues found in 20 source files
+============================= 39 passed in 32.56s =============================
 ```
 
 
@@ -175,7 +177,7 @@ If you use this software, please cite it as below.
 If you use this software, please cite it as below. 
 
 Lhotte, R., Clichet, V., Usureau, C. & Taupin, J. (2022). 
-Python Eplet Load Calculator (PELC) package (Version 0.5.1) [Computer software].
+Python Eplet Load Calculator (PELC) package (Version 0.5.2) [Computer software].
 https://doi.org/10.5281/zenodo.7254809
 ```
 
@@ -190,7 +192,7 @@ https://doi.org/10.5281/zenodo.7254809
   month        = oct,
   year         = 2022,
   publisher    = {Zenodo},
-  version      = {0.5.1},
+  version      = {0.5.2},
   doi          = {10.5281/zenodo.7526198},
 }
 ```
