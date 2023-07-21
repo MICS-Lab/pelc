@@ -47,7 +47,7 @@ if __name__ == "__main__":
     input_df: pd.DataFrame = pd.read_excel(
         input_path,
         sheet_name="My Sheet",
-        index_col="Index"
+        index_col=0,
     )
 
     donordf: pd.DataFrame
