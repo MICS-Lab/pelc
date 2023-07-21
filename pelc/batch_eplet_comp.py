@@ -72,7 +72,7 @@ def compute_epletic_load(
             # "DPA1*" and/or "DPB1*". Here we are not talking about the alleles that are unknown to the database.
             logging.error(
                 "Either the number of unknown alleles is different for one donor and recipient pair or one allele is "
-                "uknown whilst the other of the same locus isn't."
+                "unknown whilst the other of the same locus isn't."
             )
             return None
 
