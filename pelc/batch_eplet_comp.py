@@ -50,6 +50,10 @@ def compute_epletic_load(
     :return: None (if output_type is not None, the result will be saved on disk as a csv), or pandas.DataFrame
              (OutputType.COUNT_AND_DETAILS) or pandas.Series (OutputType.COUNT, or OutputType.ONLY_DETAILS) or
              tuple[pandas.DataFrame, pandas.DataFrame] (OutputType.FILTERED_TYPINGS)
+
+    :raises ValueError: if the number of unknown alleles is different for one donor and recipient pair or one allele is
+                        unknown whilst the other of the same locus isn't. Obviously doesn't raise anything if user
+                        inputs a homozygous like this: donor: A*01:01 A* and recipient: A*01:01 A*11:01.
     """
     if not class_i and not class_ii:
         logging.error(
@@ -74,7 +78,10 @@ def compute_epletic_load(
                 "Either the number of unknown alleles is different for one donor and recipient pair or one allele is "
                 "unknown whilst the other of the same locus isn't."
             )
-            return None
+            raise ValueError(
+                "Either the number of unknown alleles is different for one donor and recipient pair or one allele is "
+                "unknown whilst the other of the same locus isn't."
+            )
 
 
     df_a: pd.DataFrame
