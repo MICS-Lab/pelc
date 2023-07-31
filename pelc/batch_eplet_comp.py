@@ -15,7 +15,8 @@ from pelc._unexpected_alleles import (
 )
 from pelc.batch_eplet_comp_aux import (
     _allele_df_to_eplets_df,
-    _transform_eplet_load_detail
+    _replace_null_alleles,
+    _transform_eplet_load_detail,
 )
 from pelc.output_type import OutputType
 
@@ -136,6 +137,11 @@ def compute_epletic_load(
 
     df_data = open_ep_data(this_file_directory_path)
 
+    # Replace Null alleles with ghost alleles in input_df_donors and input_df_recipients
+    _replace_null_alleles(input_df_donor)
+    _replace_null_alleles(input_df_recipient)
+
+    # Delete unexpected alleles (those who are not found in the EpRegistry database)
     input_df_donor, removed_donors = _delete_unexpected_alleles(
         input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp
     )

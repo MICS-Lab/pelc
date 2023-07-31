@@ -235,3 +235,16 @@ def _transform_eplet_load_detail(eplet_load_detail: pd.Series) -> pd.Series:
     )
 
     return eplet_load_detail
+
+
+def _replace_null_alleles(df: pd.DataFrame) -> None:
+    """
+    :param df: pd.DataFrame with the typing details
+    :return: None, the dataframe is modified inplace
+    """
+    df.replace(
+        r'^(.*\*).*N$',
+        r"\1",
+        regex=True,
+        inplace=True
+    )
