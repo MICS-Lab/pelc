@@ -9,7 +9,6 @@ def _is_valid_allele(allele: str) -> bool:
     :param allele: allele to check
     :return: whether or not the allele is valid
     """
-
     return "*" in allele and ":" in allele
 
 
