@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 
 from pelc.simple_comparison import simple_comparison
@@ -45,3 +46,6 @@ def test_null_allele() -> None:
     # Make sure there are 35 eplets in the first row and 0 in the second
     assert output_df.iloc[0, 1] == 35
     assert output_df.iloc[1, 1] == 0
+
+    # Delete output.csv
+    os.remove("output.csv")
