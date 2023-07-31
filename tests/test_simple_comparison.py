@@ -92,3 +92,15 @@ def test_returning_dataframe() -> None:
     assert (isinstance(simple_comparaison_return, pd.DataFrame))
 
     in_a6802_but_not_in_a6801(simple_comparaison_return)
+
+
+def test_empty_allele_simple_comparison() -> None:
+    # Check that the function raises a ValueError when a ghost allele is provided
+    with pytest.raises(ValueError):
+        simple_comparison(
+            "A*01:01",
+            "A*",
+            "output",
+            verifiedonly=False,
+            interlocus2=True
+        )
