@@ -6,22 +6,22 @@ from pelc.batch_eplet_comp_aux import _replace_null_alleles  # noqa
 
 
 def test_replace_null_alleles() -> None:
-    data = {
+    data: dict[str, list[str]] = {
         'A1_R': ['A*01:04N', 'A*01:15N'],
         'A2_R': ['A*02:01', 'A*02:01'],
         'C1_R': ['C*01:224N', 'C*02:38N'],
         'C2_R': ['C*04:01', 'C*04:09N'],
     }
-    input_df_recipient = pd.DataFrame(data)
+    input_df_recipient: pd.DataFrame = pd.DataFrame(data)
     _replace_null_alleles(input_df_recipient)
 
-    expected_data = {
+    expected_data: dict[str, list[str]] = {
         'A1_R': ['A*', 'A*'],
         'A2_R': ['A*02:01', 'A*02:01'],
         'C1_R': ['C*', 'C*'],
         'C2_R': ['C*04:01', 'C*'],
     }
-    expected_df_recipient = pd.DataFrame(expected_data)
+    expected_df_recipient: pd.DataFrame = pd.DataFrame(expected_data)
 
     assert input_df_recipient.equals(expected_df_recipient)
 
@@ -36,7 +36,7 @@ def test_null_allele() -> None:
     )
 
     # Open output.csv
-    output_df = pd.read_csv("output.csv")
+    output_df: pd.DataFrame = pd.read_csv("output.csv")
 
     # Check that there are two rows, with index "In A*01:01 but not in A*01:15N" and "In A*01:15N but not in A*01:01"
     assert output_df.shape[0] == 2
