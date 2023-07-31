@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 from pelc.simple_comparison import simple_comparison
-from pelc.batch_eplet_comp_aux import _replace_null_alleles
+from pelc.batch_eplet_comp_aux import _replace_null_alleles  # noqa
 
 
 def test_replace_null_alleles() -> None:
