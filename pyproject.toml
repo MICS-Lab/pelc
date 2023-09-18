@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pelc"
-version = "0.5.3"
+version = "0.5.4"
 description = "Python Eplet Load Calculator"
 authors = ["JasonMendoza2008 <lhotteromain@gmail.com>"]
 readme = "README.md"

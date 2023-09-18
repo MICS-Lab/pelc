@@ -36,10 +36,10 @@ def _is_eplet_to_be_added(
         return True
 
     locus_det: str
-    if eplet[0] in ["r", "q", "p"]:
+    if eplet[0] in ["R", "Q", "P"]:
         locus_det = "i2"
     else:
-        locus_det = suffix
+            locus_det = suffix
 
     return (
         df_data[
@@ -74,7 +74,7 @@ def _convert_to_eplets(
     for eplet in df_ref.loc[allele].values:
         if not pd.isnull(eplet):
             if _is_eplet_to_be_added(eplet, suffix, df_data, verifiedonly):
-                if eplet[0] in ["r", "q", "p"]:
+                if eplet[0] in ["R", "Q", "P"]:
                     if interlocus2:
                         eplet_list.append(eplet)
                 else:
@@ -206,7 +206,7 @@ def _extract_key_to_rank_eplets(eplet: str) -> int:
         number = int(starts_with_number.group())
         return number
     else:
-        extract_number = re.search(r"^.[pqr]*(\d+)", eplet)
+        extract_number = re.search(r"^.[PQR]*(\d+)", eplet)
         if extract_number:
             return 1000 + int(extract_number.group(1))  # 1000 will guarantee this comes last
         else:

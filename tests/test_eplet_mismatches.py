@@ -65,13 +65,13 @@ def test_eplet_comparison_details() -> None:
         assert output_df_fn.at[index_, "EpMismatches"] == "None"
 
     list_mismatches_1: list[str] = output_df_fn.at[1, "EpMismatches"].split(", ")
-    assert ("rq26Y" in list_mismatches_1)
+    assert ("RQ26Y" in list_mismatches_1)
     # rq26Y is in DQB1*03:01 but not in DQB1*03:02 (can be checked by aligning the sequences on
     # https://www.ebi.ac.uk/ipd/imgt/hla/alignment/)
     # The prediction does not output rq26Y although it should - rq26Y is therefore a false negative
-    assert ("rqp37YA" not in list_mismatches_1)
+    assert ("RQP37YA" not in list_mismatches_1)
     # Both have this eplet
-    assert ("rp37FV" not in list_mismatches_1)
+    assert ("RP37FV" not in list_mismatches_1)
     # The mismatch is a DQ mismatch and this is a DR / DP eplet
 
     list_mismatches_2_fn: list[str] = output_df_fn.at[2, "EpMismatches"].split(", ")
@@ -298,7 +298,7 @@ def test_interlocus2() -> None:
         assert output_df_fn.at[index_, "EpMismatches"] == "None"
 
     list_mismatches_1: list[str] = output_df_fn.at[1, "EpMismatches"].split(", ")
-    assert ("rq26Y" not in list_mismatches_1)
+    assert ("RQ26Y" not in list_mismatches_1)
     # rq26Y is in DQB1*03:01 but not in DQB1*03:02 (can be checked by aligning the sequences on
     # https://www.ebi.ac.uk/ipd/imgt/hla/alignment/)
     # The prediction does not output rq26Y although it should - rq26Y is therefore a false negative
