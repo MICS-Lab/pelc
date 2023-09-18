@@ -113,7 +113,7 @@ def _allele_df_to_eplets_df(
     :return: pd.DataFrame with eplets for each patient, for each locus
     """
 
-    eplets_per_allele_dataframe: pd.DataFrame = df.applymap(
+    eplets_per_allele_dataframe: pd.DataFrame = df.map(
         lambda allele:
         _convert_to_eplets(
             allele,
