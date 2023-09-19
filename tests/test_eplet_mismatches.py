@@ -350,3 +350,32 @@ def test_dpa() -> None:
         assert output_df.at[8, "Eplet Load"] == 1
 
         os.remove(f"{output_path}.csv")
+
+
+def test_abv() -> None:
+    """
+    Test that the ABV only option works. Donor is DQB1*03:01, recipient is DQB1*03:02. There should be
+    an antibody verified eplet mismatch (45EV).
+    :return: None
+    """
+    donordf, recipientdf, output_path = base_loading("pytest_abv.xlsx", "Sheet 1")
+
+    abv: bool
+    for abv in False, True:
+        class_1: bool
+        for class_1 in False, True:
+            compute_epletic_load(
+                donordf,
+                recipientdf,
+                output_path,
+                OutputType.DETAILS_AND_COUNT,
+                class_1,  # class_i
+                True,  # class_ii
+                abv,  # abv_only
+            )
+
+            output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+            assert "45EV_DQ" in output_df.at[8, "EpMismatches"]
+
+            os.remove(f"{output_path}.csv")
