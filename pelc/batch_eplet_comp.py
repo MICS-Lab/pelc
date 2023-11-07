@@ -134,7 +134,6 @@ def compute_epletic_load(
                 f"{this_file_directory_path}/data/C.csv", ["C*"], no_eplets=True
             )
 
-
     df_data = open_ep_data(this_file_directory_path)
 
     # Replace Null alleles with ghost alleles in input_df_donors and input_df_recipients

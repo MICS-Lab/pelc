@@ -47,6 +47,7 @@ def _open_epregistry_database(
 
 def open_ep_data(eplet_comparison_file_directory_path: str) -> pd.DataFrame:
     """
+    :param eplet_comparison_file_directory_path: path to where the data folder is located
     :return: pandas.DataFrame with the eplet informations database
     """
 
