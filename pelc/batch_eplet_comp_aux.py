@@ -67,7 +67,7 @@ def _convert_to_eplets(
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
     :param verifiedonly: whether or not to take into account only verified eplets
 
-    :return: list of eplets corresponding the allele
+    :return: list of eplets corresponding to the input allele
     """
 
     eplet_list: list[str] = []
