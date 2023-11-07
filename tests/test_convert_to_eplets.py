@@ -34,7 +34,13 @@ def test_convert_to_eplets() -> None:
         "160A_DQ",
         "185I_DQ",
     ]
-    output_list: list[str] = _convert_to_eplets(
+
+    output_list_dqa05_01: list[str] = _convert_to_eplets(
         "DQA1*05:01", df_ref, "DQ", df_data, False, False
     )
-    assert sorted(output_list) == sorted(expected_list)
+    assert sorted(output_list_dqa05_01) == sorted(expected_list)
+
+    output_list_dqa05_05: list[str] = _convert_to_eplets(
+        "DQA1*05:05", df_ref, "DQ", df_data, False, False
+    )
+    assert sorted(output_list_dqa05_05) == sorted(expected_list)
