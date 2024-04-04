@@ -8,15 +8,13 @@ authors:
     orcid: https://orcid.org/0000-0002-6131-5415
   - family-names: Clichet
     given-names: Valentin
-    orcid:
   - family-names: Usureau
     given-names: Cédric
-    orcid:
   - family-names: Taupin
     given-names: Jean-Luc
     orcid: https://orcid.org/0000-0002-5766-046X
 title: Python Eplet Load Calculator (PELC) package
 version: 0.5.4.2
-doi: doi.org/10.5281/zenodo.7254809
-link: https://github.com/MICS-Lab/pecc
+doi: 10.5281/zenodo.7254809
+link: https://github.com/MICS-Lab/pelc
 date-released: 2022-10-26
