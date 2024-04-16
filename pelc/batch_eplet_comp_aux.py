@@ -242,9 +242,28 @@ def _replace_null_alleles(df: pd.DataFrame) -> None:
     :param df: pd.DataFrame with the typing details
     :return: None, the dataframe is modified inplace
     """
+    # Replace Null Alleles
     df.replace(
         r'^(.*\*).*N$',
         r"\1",
         regex=True,
         inplace=True
     )
+    df.replace(
+        "DRB3*",
+        "DRB345*",
+        inplace=True
+    )
+    df.replace(
+        "DRB4*",
+        "DRB345*",
+        inplace=True
+    )
+    df.replace(
+        "DRB5*",
+        "DRB345*",
+        inplace=True
+    )
+    # Replace NaNs with ghost alleles
+    for column in df.columns:
+        df[column] = df[column].fillna(column[:-3] + "*")

@@ -379,3 +379,26 @@ def test_abv() -> None:
             assert "45EV_DQ" in output_df.at[8, "EpMismatches"]
 
             os.remove(f"{output_path}.csv")
+
+
+def test_standard_input() -> None:
+    # Just standard input to make sure everything is working for real-life data
+    donordf, recipientdf, output_path = base_loading("pytest_standard_input.xlsx", "My Sheet")
+
+    compute_epletic_load(
+        donordf,
+        recipientdf,
+        output_path,
+        OutputType.DETAILS_AND_COUNT,
+        True,  # class_i
+        True,  # class_ii
+        False,  # abv_only
+    )
+
+    output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+    
+    assert len(output_df) == len(donordf) == len(recipientdf)
+    assert "9H" in output_df.at[1, "EpMismatches"]
+    
+    os.remove(f"{output_path}.csv")
+        
