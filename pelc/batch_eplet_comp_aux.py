@@ -46,7 +46,7 @@ def _is_eplet_to_be_added(
             (df_data["eplet"] == eplet)
             &
             (df_data["locus"] == locus_det)
-        ]["confirmation"].item() == "Yes"
+        ]["confirmation"].item() == "Confirmed"
     )
 
 
