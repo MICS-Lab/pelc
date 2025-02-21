@@ -10,6 +10,8 @@ def _open_epregistry_database(
     """
     :param path_to_csv: path to the csv EpRegistry database file
     :param ghost_alleles: allele(s) string(s) to be used as (a) ghost allele(s) (no eplets)
+    :param no_eplets: boolean to indicate if we want to get the dataframe or actually just an empty dataframe for
+                      performance reasons
 
     :return: pandas.DataFrame with the EpRegistry database and the ghost allele
     """
