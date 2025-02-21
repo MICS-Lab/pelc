@@ -2,6 +2,8 @@
 [![Downloads](https://pepy.tech/badge/pelc)](https://pepy.tech/project/pelc)
 # PELC (Python Eplet Load Calculator)
 
+
+
 ### Overview
 PELC is a Python package designed to calculate efficiently the HLA Eplet Load (based on the
 [EpRegistry database](https://www.epregistry.com.br/)) between donors and recipients by loading in a pandas.DataFrame
@@ -9,10 +11,10 @@ in `eplet_comparison.compute_epletic_load` the recipients' and donors' typings. 
 more details.
 
 
+
 ### Getting started
 #### Install from PyPI (recommended)
 To use `pelc`, run `pip install pelc` in your terminal.
-
 
 #### Usage
 
@@ -70,6 +72,7 @@ Note that if a typing is unknown, one can use `A*`, `B*`, ..., `DPB1*` as the al
 donors. If the allele is unknown for only of the two individuals, it is necessary to use `A*`, `B*`, ..., `DPB1*` for
 both individuals otherwise the eplet mismatch computation will not be performed for this donor / recipient pair.
 
+
 #### Advanced usage:
 ##### a. Not taking into account all loci (if they are not typed for example)
 If one wants to determine the eplet mismatches between a donor and a recipient but without taking into account
@@ -88,7 +91,8 @@ expression '^.[PQR]*(\d+)' (interlocus2) either.
 ```
 
 
-#### Unit tests
+
+### Unit tests
 Tested on `Python 3.10.6` (`pelc0.5.2`) & `Python 3.11.1` (`pelc0.5.2`) & `Python 3.12.5` (`pelc0.5.4.3`).
 ```
 platform win32 -- Python 3.10.6, pytest-7.4.0, pluggy-1.2.0
@@ -187,8 +191,6 @@ unit_tests_simple.py .                                                          
 Success: no issues found in 22 source files
 ============================ 47 passed in 21.88s ==============================
 ```
-
- 
 
 
 
