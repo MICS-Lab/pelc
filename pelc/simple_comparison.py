@@ -37,14 +37,17 @@ def simple_comparison(
         allele1: str,
         allele2: str,
         output_path: str | None,
-        verifiedonly: bool = False,
+        verified_only: bool = False,
+        include_questionable: bool = False,
         interlocus2: bool = True
 ) -> None | pd.DataFrame:
     """
     :param allele1: First allele to compare
     :param allele2: Second allele to compare
     :param output_path: Output path without the extension. If None, the output will be returned as a pandas.DataFrame.
-    :param verifiedonly: How should the epletic charge be computed? Verified eplets only? Or all eplets?
+    :param verified_only: How should the epletic charge be computed? Verified eplets only? Or all eplets?
+    :param include_questionable: Should we include questionable antibody-verified eplets in the computation?
+    This argument is ignored if verified_only is False.
     :param interlocus2: whether or not to take into account interlocus eplets (only relevant for HLA of class II)
 
     :return: None or a pandas.DataFrame with the results according to output_path
@@ -84,7 +87,8 @@ def simple_comparison(
                 input_df_recipient,
                 output_path,
                 OutputType.DETAILS_AND_COUNT,
-                verifiedonly=verifiedonly,
+                verified_only=verified_only,
+                include_questionable=include_questionable,
                 interlocus2=interlocus2,
                 simple_comparison=True
             )

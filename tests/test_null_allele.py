@@ -31,7 +31,7 @@ def test_null_allele() -> None:
         "A*01:01",
         "A*01:15N",
         "output",
-        verifiedonly=False,
+        verified_only=False,
         interlocus2=True
     )
 

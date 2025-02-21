@@ -38,6 +38,7 @@ def test_unexpected_alleles() -> None:
         True,
         True,
         False,
+        False,
         [4]
     )
 

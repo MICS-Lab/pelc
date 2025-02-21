@@ -1,3 +1,4 @@
+import numpy as np
 import os
 import pandas as pd
 
@@ -401,4 +402,49 @@ def test_standard_input() -> None:
     assert "9H" in output_df.at[1, "EpMismatches"]
     
     os.remove(f"{output_path}.csv")
-        
+
+
+def test_abv_questionable() -> None:
+    """
+    Test that the questionable option works. Donor is DQA1*05:01, recipient is DQA1*04:01. There should be
+    a questionable antibody verified eplet mismatch (75S).
+    :return: None
+    """
+    donordf, recipientdf, output_path = base_loading("pytest_questionable.xlsx", "Sheet 1")
+
+    class_1: bool
+    for class_1 in False, True:
+        compute_epletic_load(
+            donordf,
+            recipientdf,
+            output_path,
+            OutputType.DETAILS_AND_COUNT,
+            class_1,  # class_i
+            True,  # class_ii
+            True,  # abv_only
+            True  # include_questionable
+        )
+
+        output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+        assert "75S_DQ" in output_df.at[8, "EpMismatches"]
+
+        os.remove(f"{output_path}.csv")
+
+        compute_epletic_load(
+            donordf,
+            recipientdf,
+            output_path,
+            OutputType.DETAILS_AND_COUNT,
+            class_1,  # class_i
+            True,  # class_ii
+            True,  # abv_only
+            False  # include_questionable
+        )
+
+        output_df_no_questionable: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
+
+        assert np.isnan(output_df_no_questionable.at[8, "EpMismatches"])
+        # The only Antibody-Verified mismatches between a DQA1*05:01 donor and a DQA1*04:01 recipient are questionable
+
+        os.remove(f"{output_path}.csv")

@@ -29,7 +29,8 @@ def compute_epletic_load(
     output_type: OutputType,
     class_i: bool = True,
     class_ii: bool = True,
-    verifiedonly: bool = False,
+    verified_only: bool = False,
+    include_questionable: bool = False,
     exclude: list[int | str] | None = None,
     interlocus2: bool = True,
     simple_comparison: bool = False,
@@ -41,7 +42,9 @@ def compute_epletic_load(
     :param output_type: What is gonna be in the output file
     :param class_i: Compute class I eplets comparison?
     :param class_ii: Compute class II eplets comparison?
-    :param verifiedonly: How should the epletic charge be computed? Verified eplets only? Or all eplets?
+    :param verified_only: How should the epletic charge be computed? Verified eplets only? Or all eplets?
+    :param include_questionable: Should we include questionable antibody-verified eplets in the computation?
+    This argument is ignored if verified_only is False.
     :param exclude: list of indices to exclude
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
     :param simple_comparison: whether or not it's a simple allele to allele comparison in which case, the function
@@ -166,10 +169,30 @@ def compute_epletic_load(
         input_df_donor, input_df_recipient = _remove_unexpected_other_individual(input_df_donor, input_df_recipient)
 
         donors_eplets_per_allele: pd.DataFrame = _allele_df_to_eplets_df(
-            input_df_donor, df_a, df_b, df_c, df_dr, df_dq, df_dp, df_data, interlocus2, verifiedonly
+            input_df_donor,
+            df_a,
+            df_b,
+            df_c,
+            df_dr,
+            df_dq,
+            df_dp,
+            df_data,
+            interlocus2,
+            verified_only,
+            include_questionable
         )
         recipients_eplets_per_allele: pd.DataFrame = _allele_df_to_eplets_df(
-            input_df_recipient, df_a, df_b, df_c, df_dr, df_dq, df_dp, df_data, interlocus2, verifiedonly
+            input_df_recipient,
+            df_a,
+            df_b,
+            df_c,
+            df_dr,
+            df_dq,
+            df_dp,
+            df_data,
+            interlocus2,
+            verified_only,
+            include_questionable
         )
 
         # Concatenate all loci

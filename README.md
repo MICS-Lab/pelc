@@ -27,7 +27,7 @@ simple_comparison(
     "A*68:01",
     "A*68:02",
     "output",  # file will be saved as output.csv in the current directory
-    verifiedonly=False,  # if True, only verified eplets will be considered, otherwise all eplets will be considered
+    verified_only=False,  # if True, only verified eplets will be considered, otherwise all eplets will be considered
     interlocus2=True  # doesn't matter for class I alleles
 )
 ```
@@ -63,7 +63,7 @@ if __name__ == "__main__":
         output_type.OutputType.DETAILS_AND_COUNT,
         class_i=True,  # Compute class I eplets comparison?
         class_ii=True,  # Compute class II eplets comparison?
-        verifiedonly=False,  # How should the epletic charge be computed? Verified eplets only? Or all eplets?
+        verified_only=False,  # How should the epletic charge be computed? Verified eplets only? Or all eplets?
         exclude=None,  # list of indices to exclude
         interlocus2=True  # whether or not to take into account interlocus eplets for HLA of class II
     )
@@ -93,7 +93,7 @@ expression '^.[PQR]*(\d+)' (interlocus2) either.
 
 
 ### Unit tests
-Tested on `Python 3.10.6` (`pelc0.5.2`) & `Python 3.11.1` (`pelc0.5.2`) & `Python 3.12.5` (`pelc0.5.4.3`).
+Tested on `Python 3.10.6` (`pelc0.5.2`) & `Python 3.11.1` (`pelc0.5.2`) & `Python 3.12.5` (`pelc0.5.4.4`).
 ```
 platform win32 -- Python 3.10.6, pytest-7.4.0, pluggy-1.2.0
 plugins: mypy-0.10.3
@@ -159,37 +159,35 @@ Success: no issues found in 20 source files
 ```
 ============================= test session starts =============================
 platform win32 -- Python 3.12.5, pytest-8.3.4, pluggy-1.5.0
-rootdir: C:\Users\lhott\Documents\Formation scolaire\These\Travail\pelc
-configfile: pyproject.toml
 plugins: mypy-0.10.3
-collected 47 items                                                                                                                                      
+collected 50 items                                                                                                                                      
 
-pelc\__init__.py ..                                                                                                                               [  4%]
-pelc\_input_sanity_check.py .                                                                                                                     [  6%]
-pelc\_open_epregistry_databases.py .                                                                                                              [  8%] 
-pelc\_unexpected_alleles.py .                                                                                                                     [ 10%] 
-pelc\batch_eplet_comp.py .                                                                                                                        [ 12%] 
-pelc\batch_eplet_comp_aux.py .                                                                                                                    [ 14%] 
-pelc\output_type.py .                                                                                                                             [ 17%] 
-pelc\simple_comparison.py .                                                                                                                       [ 19%] 
-tests\__init__.py .                                                                                                                               [ 21%] 
-tests\base_loading_for_tests.py .                                                                                                                 [ 23%] 
-tests\test_convert_to_eplets.py ..                                                                                                                [ 27%] 
-tests\test_eplet_mismatches.py ...........                                                                                                        [ 51%]
-tests\test_extract_key_to_rank_epletes.py ..                                                                                                      [ 55%] 
-tests\test_is_valid_allele.py ..                                                                                                                  [ 59%] 
-tests\test_null_allele.py ...                                                                                                                     [ 65%]
-tests\test_only_one_chromosome.py ..                                                                                                              [ 70%]
-tests\test_pelc.py ..                                                                                                                             [ 74%] 
-tests\test_same_locus.py ..                                                                                                                       [ 78%] 
-tests\test_simple_comparison.py ......                                                                                                            [ 91%]
-tests\test_unexpected_alleles.py ..                                                                                                               [ 95%]
-unit_tests_mypy.py .                                                                                                                              [ 97%] 
-unit_tests_simple.py .                                                                                                                            [100%] 
+pelc\__init__.py ..                                                      [  4%]
+pelc\_input_sanity_check.py .                                            [  6%]
+pelc\_open_epregistry_databases.py .                                     [  8%]
+pelc\_unexpected_alleles.py .                                            [ 10%]
+pelc\batch_eplet_comp.py .                                               [ 12%]
+pelc\batch_eplet_comp_aux.py .                                           [ 14%]
+pelc\output_type.py .                                                    [ 16%]
+pelc\simple_comparison.py .                                              [ 18%]
+tests\__init__.py .                                                      [ 20%]
+tests\base_loading_for_tests.py .                                        [ 22%]
+tests\test_convert_to_eplets.py ...                                      [ 28%]
+tests\test_eplet_mismatches.py ............                              [ 52%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 56%]
+tests\test_is_valid_allele.py ..                                         [ 60%]
+tests\test_null_allele.py ...                                            [ 66%]
+tests\test_only_one_chromosome.py ..                                     [ 70%]
+tests\test_pelc.py ..                                                    [ 74%]
+tests\test_same_locus.py ..                                              [ 78%]
+tests\test_simple_comparison.py .......                                  [ 92%]
+tests\test_unexpected_alleles.py ..                                      [ 96%]
+unit_tests_mypy.py .                                                     [ 98%]
+unit_tests_simple.py .                                                   [100%]
 ===================================== mypy ==================================== 
 
 Success: no issues found in 22 source files
-============================ 47 passed in 21.88s ==============================
+============================ 50 passed in 21.88s ==============================
 ```
 
 
@@ -217,7 +215,7 @@ If you use this software, please cite it as below.
 If you use this software, please cite it as below. 
 
 Lhotte, R., Clichet, V., Usureau, C. & Taupin, J. (2022). 
-Python Eplet Load Calculator (PELC) package (Version 0.5.4.3) [Computer software].
+Python Eplet Load Calculator (PELC) package (Version 0.5.4.4) [Computer software].
 https://doi.org/10.5281/zenodo.7254809
 ```
 
@@ -232,7 +230,7 @@ https://doi.org/10.5281/zenodo.7254809
   month        = oct,
   year         = 2022,
   publisher    = {Zenodo},
-  version      = {0.5.4.3},
+  version      = {0.5.4.4},
   doi          = {10.5281/zenodo.7526198},
 }
 ```

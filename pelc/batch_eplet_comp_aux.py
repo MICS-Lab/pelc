@@ -1,5 +1,7 @@
 # IMPORTS
 import logging
+from argparse import ArgumentError
+
 import pandas as pd
 import re
 
@@ -19,19 +21,21 @@ def _is_eplet_to_be_added(
         eplet: str,
         suffix: str,
         df_data: pd.DataFrame,
-        verifiedonly: bool = False
+        verified_only: bool = False,
+        include_questionable: bool = False
 ) -> bool:
     """
     Checks whether the eplet should be added
     :param eplet: is it the correct eplet
     :param suffix: is it the correct gene (needed because for example 26L is a DR eplet but also a DQ eplet)
     :param df_data: reference pandas.DataFrame with details about the eplets
-    :param verifiedonly: whether or not to take into account only verified eplets
+    :param verified_only: whether or not to take into account only verified eplets
+    :param include_questionable: whether or not to take into account questionable antibody verified eplets.
 
     :return: whether or not the eplet should be added to the list of eplets
     """
 
-    if not verifiedonly:
+    if not verified_only:
         # if verified only is False, then we don't care about the 'confirmation' column
         return True
 
@@ -41,6 +45,14 @@ def _is_eplet_to_be_added(
     else:
         locus_det = suffix
 
+    if include_questionable:
+        return (
+            df_data[
+                (df_data["eplet"] == eplet)
+                &
+                (df_data["locus"] == locus_det)
+            ]["confirmation"].item() in ["Confirmed", "Questionable"]
+        )
     return (
         df_data[
             (df_data["eplet"] == eplet)
@@ -57,7 +69,8 @@ def _convert_to_eplets(
         suffix: str,
         df_data: pd.DataFrame,
         interlocus2: bool,
-        verifiedonly: bool = False
+        verified_only: bool = False,
+        include_questionable: bool = False
 ) -> list[str]:
     """
     :param allele: allele to convert
@@ -65,7 +78,8 @@ def _convert_to_eplets(
     :param suffix: which locus the allele belongs to
     :param df_data: reference pandas.DataFrame with details about all the eplets (ep_data.csv)
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
-    :param verifiedonly: whether or not to take into account only verified eplets
+    :param verified_only: whether or not to take into account only verified eplets
+    :param include_questionable: whether or not to take into account questionable antibody verified eplets.
 
     :return: list of eplets corresponding to the input allele
     """
@@ -73,7 +87,7 @@ def _convert_to_eplets(
     eplet_list: list[str] = []
     for eplet in df_ref.loc[allele].values:
         if not pd.isnull(eplet):
-            if _is_eplet_to_be_added(eplet, suffix, df_data, verifiedonly):
+            if _is_eplet_to_be_added(eplet, suffix, df_data, verified_only, include_questionable):
                 if eplet[0] in ["R", "Q", "P"]:
                     if interlocus2:
                         eplet_list.append(eplet)
@@ -94,7 +108,8 @@ def _allele_df_to_eplets_df(
         df_dp: pd.DataFrame,
         df_data: pd.DataFrame,
         interlocus2: bool,
-        verifiedonly: bool = False
+        verified_only: bool = False,
+        include_questionable: bool = False
 ) -> pd.DataFrame:
     """
     Transformation of the allele dataframe (index + alleles) into an eplet dataframe (index + eplets)
@@ -108,7 +123,8 @@ def _allele_df_to_eplets_df(
     :param df_dp: reference dataframe HLA DPB1
     :param df_data: reference pandas.DataFrame with details about all the eplets (ep_data.csv)
     :param interlocus2: whether or not to take into account interlocus eplets for HLA of class II
-    :param verifiedonly: whether or not to take into account only verified eplets
+    :param verified_only: whether or not to take into account only verified eplets
+    :param include_questionable: whether or not to take into account questionable antibody verified eplets.
 
     :return: pd.DataFrame with eplets for each patient, for each locus
     """
@@ -121,7 +137,8 @@ def _allele_df_to_eplets_df(
             "ABC",
             df_data,
             interlocus2,
-            verifiedonly
+            verified_only,
+            include_questionable
         )
         if allele[0] == "A"
         else (
@@ -131,7 +148,8 @@ def _allele_df_to_eplets_df(
                 "ABC",
                 df_data,
                 interlocus2,
-                verifiedonly
+                verified_only,
+                include_questionable
             )
             if allele[0] == "B"
             else
@@ -142,7 +160,8 @@ def _allele_df_to_eplets_df(
                     "ABC",
                     df_data,
                     interlocus2,
-                    verifiedonly
+                    verified_only,
+                    include_questionable
                 )
                 if allele[0] == "C"
                 else
@@ -153,7 +172,8 @@ def _allele_df_to_eplets_df(
                         "DR",
                         df_data,
                         interlocus2,
-                        verifiedonly
+                        verified_only,
+                        include_questionable
                     )
                     if allele[0:2] == "DR"
                     else
@@ -164,7 +184,8 @@ def _allele_df_to_eplets_df(
                             "DQ",
                             df_data,
                             interlocus2,
-                            verifiedonly
+                            verified_only,
+                            include_questionable
                         )
                         if allele[0:2] == "DQ"
                         else
@@ -175,7 +196,8 @@ def _allele_df_to_eplets_df(
                                 "DP",
                                 df_data,
                                 interlocus2,
-                                verifiedonly
+                                verified_only,
+                                include_questionable
                             )
                             if allele[0:2] == "DP"
                             else
