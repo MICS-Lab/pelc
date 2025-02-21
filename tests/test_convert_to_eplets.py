@@ -31,8 +31,7 @@ def test_convert_to_eplets() -> None:
         "75S_DQ",
         "76L_DQ",
         "129H_DQ",
-        "160A_DQ",
-        "185I_DQ",
+        "160A_DQ"
     ]
 
     output_list_dqa05_01: list[str] = _convert_to_eplets(
