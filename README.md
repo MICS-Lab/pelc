@@ -89,7 +89,7 @@ expression '^.[PQR]*(\d+)' (interlocus2) either.
 
 
 #### Unit tests
-Tested on `Python 3.10.6` & `Python 3.11.1`.
+Tested on `Python 3.10.6` (`pelc0.5.2`) & `Python 3.11.1` (`pelc0.5.2`) & `Python 3.12.5` (`pelc0.5.4.3`).
 ```
 platform win32 -- Python 3.10.6, pytest-7.4.0, pluggy-1.2.0
 plugins: mypy-0.10.3
@@ -151,6 +151,44 @@ tests\test_unexpected_alleles.py ..                                      [100%]
 Success: no issues found in 20 source files
 ============================= 39 passed in 32.56s =============================
 ```
+
+```
+============================= test session starts =============================
+platform win32 -- Python 3.12.5, pytest-8.3.4, pluggy-1.5.0
+rootdir: C:\Users\lhott\Documents\Formation scolaire\These\Travail\pelc
+configfile: pyproject.toml
+plugins: mypy-0.10.3
+collected 47 items                                                                                                                                      
+
+pelc\__init__.py ..                                                                                                                               [  4%]
+pelc\_input_sanity_check.py .                                                                                                                     [  6%]
+pelc\_open_epregistry_databases.py .                                                                                                              [  8%] 
+pelc\_unexpected_alleles.py .                                                                                                                     [ 10%] 
+pelc\batch_eplet_comp.py .                                                                                                                        [ 12%] 
+pelc\batch_eplet_comp_aux.py .                                                                                                                    [ 14%] 
+pelc\output_type.py .                                                                                                                             [ 17%] 
+pelc\simple_comparison.py .                                                                                                                       [ 19%] 
+tests\__init__.py .                                                                                                                               [ 21%] 
+tests\base_loading_for_tests.py .                                                                                                                 [ 23%] 
+tests\test_convert_to_eplets.py ..                                                                                                                [ 27%] 
+tests\test_eplet_mismatches.py ...........                                                                                                        [ 51%]
+tests\test_extract_key_to_rank_epletes.py ..                                                                                                      [ 55%] 
+tests\test_is_valid_allele.py ..                                                                                                                  [ 59%] 
+tests\test_null_allele.py ...                                                                                                                     [ 65%]
+tests\test_only_one_chromosome.py ..                                                                                                              [ 70%]
+tests\test_pelc.py ..                                                                                                                             [ 74%] 
+tests\test_same_locus.py ..                                                                                                                       [ 78%] 
+tests\test_simple_comparison.py ......                                                                                                            [ 91%]
+tests\test_unexpected_alleles.py ..                                                                                                               [ 95%]
+unit_tests_mypy.py .                                                                                                                              [ 97%] 
+unit_tests_simple.py .                                                                                                                            [100%] 
+===================================== mypy ==================================== 
+
+Success: no issues found in 22 source files
+============================ 47 passed in 21.88s ==============================
+```
+
+ 
 
 
 
