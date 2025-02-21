@@ -39,7 +39,7 @@ def _is_eplet_to_be_added(
     if eplet[0] in ["R", "Q", "P"]:
         locus_det = "i2"
     else:
-            locus_det = suffix
+        locus_det = suffix
 
     return (
         df_data[
