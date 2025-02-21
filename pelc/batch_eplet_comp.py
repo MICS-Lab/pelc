@@ -7,7 +7,7 @@ import pandas as pd
 from pelc._input_sanity_check import _equal_amount_of_unknown_alleles
 from pelc._open_epregistry_databases import (
     _open_epregistry_database,
-    open_ep_data,
+    _open_ep_data,
 )
 from pelc._unexpected_alleles import (
     _delete_unexpected_alleles,
@@ -134,7 +134,7 @@ def compute_epletic_load(
                 f"{this_file_directory_path}/data/C.csv", ["C*"], no_eplets=True
             )
 
-    df_data = open_ep_data(this_file_directory_path)
+    df_data = _open_ep_data(this_file_directory_path)
 
     # Replace Null alleles with ghost alleles in input_df_donors and input_df_recipients
     _replace_null_alleles(input_df_donor)

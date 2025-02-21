@@ -3,7 +3,7 @@ import pandas as pd
 
 from pelc.batch_eplet_comp_aux import _convert_to_eplets  # noqa
 from pelc._open_epregistry_databases import (  # noqa
-    open_ep_data,
+    _open_ep_data,  # noqa
     _open_epregistry_database,  # noqa
 )
 
@@ -18,7 +18,7 @@ def test_convert_to_eplets() -> None:
         f"{this_file_directory_path}{os.sep}..{os.sep}pelc{os.sep}data{os.sep}DQ.csv",
         ["DQB1*", "DQA1*"],
     )
-    df_data: pd.DataFrame = open_ep_data(
+    df_data: pd.DataFrame = _open_ep_data(
         f"{this_file_directory_path}{os.sep}..{os.sep}pelc"
     )
     expected_list: list[str] = [
