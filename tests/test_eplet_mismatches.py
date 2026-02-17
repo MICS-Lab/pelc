@@ -25,6 +25,7 @@ def test_eplet_comparison_details() -> None:
 
     assert output_df_fp.at[1, "EpMismatches"] == "None"
 
+    assert isinstance(output_df_fp.at[2, "EpMismatches"], str)
     list_mismatches_2_fp: list[str] = output_df_fp.at[2, "EpMismatches"].split(", ")
     assert ("37FV_DR" not in list_mismatches_2_fp)
     # Not a mismatch (not in the prediction nor in the true typing)
@@ -32,6 +33,7 @@ def test_eplet_comparison_details() -> None:
     # This is a false negative (in DRB1*04:05 (true typing) but not in DRB1*04:04 (predicted typing))
     # So it shouldn't appear in the False Positives
 
+    assert isinstance(output_df_fp.at[5, "EpMismatches"], str)
     list_mismatches_5_fp: list[str] = output_df_fp.at[5, "EpMismatches"].split(", ")
     assert (["97W_ABC"] == list_mismatches_5_fp)
     # Present on B*14:02 (predicted) but not on B*14:10 (true typing) and isn't compensated by loci HLA-A or HLA-C.
@@ -64,7 +66,8 @@ def test_eplet_comparison_details() -> None:
     for index_ in range(6, 2146):
         # Typings are identical
         assert output_df_fn.at[index_, "EpMismatches"] == "None"
-
+    
+    assert isinstance(output_df_fn.at[1, "EpMismatches"], str)
     list_mismatches_1: list[str] = output_df_fn.at[1, "EpMismatches"].split(", ")
     assert ("RQ26Y" in list_mismatches_1)
     # rq26Y is in DQB1*03:01 but not in DQB1*03:02 (can be checked by aligning the sequences on
@@ -75,12 +78,14 @@ def test_eplet_comparison_details() -> None:
     assert ("RP37FV" not in list_mismatches_1)
     # The mismatch is a DQ mismatch and this is a DR / DP eplet
 
+    assert isinstance(output_df_fn.at[2, "EpMismatches"], str)
     list_mismatches_2_fn: list[str] = output_df_fn.at[2, "EpMismatches"].split(", ")
     assert ("37FV_DR" not in list_mismatches_2_fn)
     # Not a mismatch (not in the prediction nor in the true typing)
     assert ("57S_DR" in list_mismatches_2_fn)
     # This is a false negative (in DRB1*04:05 but not in DRB1*04:04)
 
+    assert isinstance(output_df_fn.at[5, "EpMismatches"], str)
     list_mismatches_5_fn: list[str] = output_df_fn.at[5, "EpMismatches"].split(", ")
     assert (list_mismatches_5_fn == ["None"])
     # All the eplet mismatches are compensated by B*35:01
@@ -162,6 +167,7 @@ def test_eplet_comparison_isolated_classes() -> None:
         else:
             assert output_df_fp.at[index_, "Eplet Load"] == 0
 
+    assert isinstance(output_df_fp.at[5, "EpMismatches"], str)
     list_mismatches_5: list[str] = output_df_fp.at[5, "EpMismatches"].split(", ")
     assert ("97W_ABC" not in list_mismatches_5)
     # Present on B*14:02 (predicted) but not on B*14:10 (true typing) and isn't compensated by loci HLA-A or HLA-C.
@@ -206,6 +212,7 @@ def test_eplet_comparison_dr13() -> None:
 
     output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
+    assert isinstance(output_df_fn.at[8, "EpMismatches"], str)
     assert ("86V_DR" in output_df_fn.at[8, "EpMismatches"])
     assert ("85VV_DR" in output_df_fn.at[8, "EpMismatches"])
 
@@ -247,6 +254,7 @@ def test_eplet_comparison_b35() -> None:
 
     output_df_fp: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
+    assert isinstance(output_df_fp.at[8, "EpMismatches"], str)
     assert ("113HD_ABC" in output_df_fp.at[8, "EpMismatches"])
     assert ("116S_ABC" in output_df_fp.at[8, "EpMismatches"])
     assert ("156R_ABC" in output_df_fp.at[8, "EpMismatches"])
@@ -270,6 +278,7 @@ def test_eplet_comparison_b35() -> None:
 
     output_df_fn: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
 
+    assert isinstance(output_df_fn.at[8, "EpMismatches"], str)
     assert ("109F_ABC" in output_df_fn.at[8, "EpMismatches"])
     assert ("113HN_ABC" in output_df_fn.at[8, "EpMismatches"])
     assert ("116Y_ABC" in output_df_fn.at[8, "EpMismatches"])
@@ -297,7 +306,8 @@ def test_interlocus2() -> None:
 
     for index_ in range(6, 2146):
         assert output_df_fn.at[index_, "EpMismatches"] == "None"
-
+    
+    assert isinstance(output_df_fn.at[1, "EpMismatches"], str)
     list_mismatches_1: list[str] = output_df_fn.at[1, "EpMismatches"].split(", ")
     assert ("RQ26Y" not in list_mismatches_1)
     # rq26Y is in DQB1*03:01 but not in DQB1*03:02 (can be checked by aligning the sequences on
@@ -376,7 +386,8 @@ def test_abv() -> None:
             )
 
             output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
-
+            
+            assert isinstance(output_df.at[8, "EpMismatches"], str)
             assert "45EV_DQ" in output_df.at[8, "EpMismatches"]
 
             os.remove(f"{output_path}.csv")
@@ -399,6 +410,7 @@ def test_standard_input() -> None:
     output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
     
     assert len(output_df) == len(donordf) == len(recipientdf)
+    assert isinstance(output_df.at[1, "EpMismatches"], str)
     assert "9H" in output_df.at[1, "EpMismatches"]
     
     os.remove(f"{output_path}.csv")
@@ -426,7 +438,8 @@ def test_abv_questionable() -> None:
         )
 
         output_df: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
-
+            
+        assert isinstance(output_df.at[8, "EpMismatches"], str)
         assert "75S_DQ" in output_df.at[8, "EpMismatches"]
 
         os.remove(f"{output_path}.csv")
@@ -443,8 +456,8 @@ def test_abv_questionable() -> None:
         )
 
         output_df_no_questionable: pd.DataFrame = pd.read_csv(f"{output_path}.csv", index_col="Index")
-
-        assert np.isnan(output_df_no_questionable.at[8, "EpMismatches"])
+        
+        assert pd.isna(output_df_no_questionable.at[8, "EpMismatches"])
         # The only Antibody-Verified mismatches between a DQA1*05:01 donor and a DQA1*04:01 recipient are questionable
 
         os.remove(f"{output_path}.csv")

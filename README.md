@@ -93,101 +93,112 @@ expression '^.[PQR]*(\d+)' (interlocus2) either.
 
 
 ### Unit tests
-Tested on `Python 3.10.6` (`pelc0.5.2`) & `Python 3.11.1` (`pelc0.5.2`) & `Python 3.12.5` (`pelc0.5.4.5`).
+Tested on `Python 3.10.11` (`pelc0.5.4.5`) & `Python 3.12.5` (`pelc0.5.4.5`) & `Python 3.13.6` (`pelc0.5.4.5`).
 ```
-platform win32 -- Python 3.10.6, pytest-7.4.0, pluggy-1.2.0
-plugins: mypy-0.10.3
-collected 39 items
+platform win32 -- Python 3.10.11, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\lhott\Documents\Formation scolaire\These\Travail\pelc
+configfile: pyproject.toml
+plugins: mypy-1.0.1
+collected 52 items
 
-unit_tests_mypy.py ..                                                    [  5%]
-unit_tests_simple.py .                                                   [  7%]
-pelc\__init__.py .                                                       [ 10%]
-pelc\_input_sanity_check.py .                                            [ 12%]
-pelc\_open_epregistry_databases.py .                                     [ 15%]
-pelc\_unexpected_alleles.py .                                            [ 17%]
-pelc\batch_eplet_comp.py .                                               [ 20%]
-pelc\batch_eplet_comp_aux.py .                                           [ 23%]
-pelc\output_type.py .                                                    [ 25%]
-pelc\simple_comparison.py .                                              [ 28%]
-tests\__init__.py .                                                      [ 30%]
-tests\base_loading_for_tests.py .                                        [ 33%]
-tests\test_eplet_mismatches.py .........                                 [ 56%]
-tests\test_extract_key_to_rank_epletes.py ..                             [ 61%]
-tests\test_is_valid_allele.py ..                                         [ 66%]
+pelc\__init__.py ..                                                      [  3%]
+pelc\_input_sanity_check.py .                                            [  5%]
+pelc\_open_epregistry_databases.py .                                     [  7%]
+pelc\_unexpected_alleles.py .                                            [  9%]
+pelc\batch_eplet_comp.py .                                               [ 11%]
+pelc\batch_eplet_comp_aux.py .                                           [ 13%]
+pelc\output_type.py .                                                    [ 15%]
+pelc\simple_comparison.py .                                              [ 17%]
+tests\__init__.py .                                                      [ 19%]
+tests\base_loading_for_tests.py .                                        [ 21%]
+tests\test_convert_to_eplets.py .....                                    [ 30%]
+tests\test_eplet_mismatches.py ............                              [ 53%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 57%]
+tests\test_is_valid_allele.py ..                                         [ 61%]
+tests\test_null_allele.py ...                                            [ 67%]
 tests\test_only_one_chromosome.py ..                                     [ 71%]
-tests\test_pelc.py ..                                                    [ 76%]
-tests\test_same_locus.py ..                                              [ 82%]
-tests\test_simple_comparison.py .....                                    [ 94%]
-tests\test_unexpected_alleles.py ..                                      [100%]
-==================================== mypy =====================================
-
-Success: no issues found in 20 source files
-============================= 39 passed in 34.42s =============================
-```
-
-```
-platform win32 -- Python 3.11.1, pytest-7.2.2, pluggy-1.0.0
-plugins: anyio-3.6.2, mypy-0.10.3
-collected 39 items
-
-unit_tests_mypy.py ..                                                    [  5%]
-unit_tests_simple.py .                                                   [  7%]
-pelc\__init__.py .                                                       [ 10%]
-pelc\_input_sanity_check.py .                                            [ 12%]
-pelc\_open_epregistry_databases.py .                                     [ 15%]
-pelc\_unexpected_alleles.py .                                            [ 17%]
-pelc\batch_eplet_comp.py .                                               [ 20%]
-pelc\batch_eplet_comp_aux.py .                                           [ 23%]
-pelc\output_type.py .                                                    [ 25%]
-pelc\simple_comparison.py .                                              [ 28%]
-tests\__init__.py .                                                      [ 30%]
-tests\base_loading_for_tests.py .                                        [ 33%]
-tests\test_eplet_mismatches.py .........                                 [ 56%]
-tests\test_extract_key_to_rank_epletes.py ..                             [ 61%]
-tests\test_is_valid_allele.py ..                                         [ 66%]
-tests\test_only_one_chromosome.py ..                                     [ 71%]
-tests\test_pelc.py ..                                                    [ 76%]
-tests\test_same_locus.py ..                                              [ 82%]
-tests\test_simple_comparison.py .....                                    [ 94%]
-tests\test_unexpected_alleles.py ..                                      [100%]
-==================================== mypy =====================================
-
-Success: no issues found in 20 source files
-============================= 39 passed in 32.56s =============================
-```
-
-```
-============================= test session starts =============================
-platform win32 -- Python 3.12.5, pytest-8.3.4, pluggy-1.5.0
-plugins: mypy-0.10.3
-collected 50 items                                                                                                                                      
-
-pelc\__init__.py ..                                                      [  4%]
-pelc\_input_sanity_check.py .                                            [  6%]
-pelc\_open_epregistry_databases.py .                                     [  8%]
-pelc\_unexpected_alleles.py .                                            [ 10%]
-pelc\batch_eplet_comp.py .                                               [ 12%]
-pelc\batch_eplet_comp_aux.py .                                           [ 14%]
-pelc\output_type.py .                                                    [ 16%]
-pelc\simple_comparison.py .                                              [ 18%]
-tests\__init__.py .                                                      [ 20%]
-tests\base_loading_for_tests.py .                                        [ 22%]
-tests\test_convert_to_eplets.py ...                                      [ 28%]
-tests\test_eplet_mismatches.py ............                              [ 52%]
-tests\test_extract_key_to_rank_epletes.py ..                             [ 56%]
-tests\test_is_valid_allele.py ..                                         [ 60%]
-tests\test_null_allele.py ...                                            [ 66%]
-tests\test_only_one_chromosome.py ..                                     [ 70%]
-tests\test_pelc.py ..                                                    [ 74%]
+tests\test_pelc.py ..                                                    [ 75%]
 tests\test_same_locus.py ..                                              [ 78%]
 tests\test_simple_comparison.py .......                                  [ 92%]
 tests\test_unexpected_alleles.py ..                                      [ 96%]
 unit_tests_mypy.py .                                                     [ 98%]
 unit_tests_simple.py .                                                   [100%]
-===================================== mypy ==================================== 
+==================================== mypy =====================================
 
 Success: no issues found in 22 source files
-============================ 50 passed in 21.88s ==============================
+============================= 52 passed in 24.32s =============================
+```
+
+```
+============================= test session starts =============================
+platform win32 -- Python 3.12.5, pytest-9.0.2, pluggy-1.5.0
+rootdir: C:\Users\lhott\Documents\Formation scolaire\These\Travail\pelc
+configfile: pyproject.toml
+plugins: mypy-1.0.1
+collected 52 items
+
+pelc\__init__.py ..                                                      [  3%]
+pelc\_input_sanity_check.py .                                            [  5%]
+pelc\_open_epregistry_databases.py .                                     [  7%]
+pelc\_unexpected_alleles.py .                                            [  9%]
+pelc\batch_eplet_comp.py .                                               [ 11%]
+pelc\batch_eplet_comp_aux.py .                                           [ 13%]
+pelc\output_type.py .                                                    [ 15%]
+pelc\simple_comparison.py .                                              [ 17%]
+tests\__init__.py .                                                      [ 19%]
+tests\base_loading_for_tests.py .                                        [ 21%]
+tests\test_convert_to_eplets.py .....                                    [ 30%]
+tests\test_eplet_mismatches.py ............                              [ 53%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 57%]
+tests\test_is_valid_allele.py ..                                         [ 61%]
+tests\test_null_allele.py ...                                            [ 67%]
+tests\test_only_one_chromosome.py ..                                     [ 71%]
+tests\test_pelc.py ..                                                    [ 75%]
+tests\test_same_locus.py ..                                              [ 78%]
+tests\test_simple_comparison.py .......                                  [ 92%]
+tests\test_unexpected_alleles.py ..                                      [ 96%]
+unit_tests_mypy.py .                                                     [ 98%]
+unit_tests_simple.py .                                                   [100%]
+==================================== mypy =====================================
+
+Success: no issues found in 22 source files
+============================= 52 passed in 25.38s =============================
+```
+
+```
+============================= test session starts =============================
+platform win32 -- Python 3.13.6, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\lhott\Documents\Formation scolaire\These\Travail\pelc
+configfile: pyproject.toml
+plugins: mypy-1.0.1
+collected 52 items
+
+pelc\__init__.py ..                                                      [  3%]
+pelc\_input_sanity_check.py .                                            [  5%]
+pelc\_open_epregistry_databases.py .                                     [  7%]
+pelc\_unexpected_alleles.py .                                            [  9%]
+pelc\batch_eplet_comp.py .                                               [ 11%]
+pelc\batch_eplet_comp_aux.py .                                           [ 13%]
+pelc\output_type.py .                                                    [ 15%]
+pelc\simple_comparison.py .                                              [ 17%]
+tests\__init__.py .                                                      [ 19%]
+tests\base_loading_for_tests.py .                                        [ 21%]
+tests\test_convert_to_eplets.py .....                                    [ 30%]
+tests\test_eplet_mismatches.py ............                              [ 53%]
+tests\test_extract_key_to_rank_epletes.py ..                             [ 57%]
+tests\test_is_valid_allele.py ..                                         [ 61%]
+tests\test_null_allele.py ...                                            [ 67%]
+tests\test_only_one_chromosome.py ..                                     [ 71%]
+tests\test_pelc.py ..                                                    [ 75%]
+tests\test_same_locus.py ..                                              [ 78%]
+tests\test_simple_comparison.py .......                                  [ 92%]
+tests\test_unexpected_alleles.py ..                                      [ 96%]
+unit_tests_mypy.py .                                                     [ 98%]
+unit_tests_simple.py .                                                   [100%]
+==================================== mypy =====================================
+
+Success: no issues found in 22 source files
+============================= 52 passed in 27.07s =============================
 ```
 
 
