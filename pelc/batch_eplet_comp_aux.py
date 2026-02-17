@@ -87,7 +87,7 @@ def _convert_to_eplets(
     eplet_list: list[str] = []
     for eplet in df_ref.loc[allele].values:
         assert df_ref.index.is_unique
-        if not pd.isnull(eplet):  # noqa, df_ref.index doesn't have duplicate, eplet is a scalar
+        if not pd.isnull(eplet):  # noqa, df_ref.index doesn't have duplicates, eplet is a scalar
             assert isinstance(eplet, str)
             if _is_eplet_to_be_added(eplet, suffix, df_data, verified_only, include_questionable):
                 if eplet[0] in ["R", "Q", "P"]:
