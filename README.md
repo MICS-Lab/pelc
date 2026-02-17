@@ -93,7 +93,7 @@ expression '^.[PQR]*(\d+)' (interlocus2) either.
 
 
 ### Unit tests
-Tested on `Python 3.10.6` (`pelc0.5.2`) & `Python 3.11.1` (`pelc0.5.2`) & `Python 3.12.5` (`pelc0.5.4.4`).
+Tested on `Python 3.10.6` (`pelc0.5.2`) & `Python 3.11.1` (`pelc0.5.2`) & `Python 3.12.5` (`pelc0.5.4.5`).
 ```
 platform win32 -- Python 3.10.6, pytest-7.4.0, pluggy-1.2.0
 plugins: mypy-0.10.3
@@ -215,7 +215,7 @@ If you use this software, please cite it as below.
 If you use this software, please cite it as below. 
 
 Lhotte, R., Clichet, V., Usureau, C. & Taupin, J. (2022). 
-Python Eplet Load Calculator (PELC) package (Version 0.5.4.4) [Computer software].
+Python Eplet Load Calculator (PELC) package (Version 0.5.4.5) [Computer software].
 https://doi.org/10.5281/zenodo.7254809
 ```
 
@@ -230,7 +230,7 @@ https://doi.org/10.5281/zenodo.7254809
   month        = oct,
   year         = 2022,
   publisher    = {Zenodo},
-  version      = {0.5.4.4},
+  version      = {0.5.4.5},
   doi          = {10.5281/zenodo.7526198},
 }
 ```
